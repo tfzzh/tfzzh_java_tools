@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- socket参数 -->
+<!-- 请求列表 -->
+<!ELEMENT proxys (proxy*)>
+<!-- 请求的信息 -->
+<!ELEMENT proxy (proxy-name, proxy-desc, proxy-param*, message*)>
+<!-- id：ID，在服务端ID、scope：服务端所在空间、scope：客户端所在空间、toClient：是否为去向客户端的消息 -->
+<!ATTLIST proxy id ID #REQUIRED
+					scope CDATA #REQUIRED
+					cscope CDATA #REQUIRED
+					toClient (true|false) "false">
+<!-- 请求的名称 -->
+<!ELEMENT proxy-name (#PCDATA)>
+<!-- 请求的说明 -->
+<!ELEMENT proxy-desc (#PCDATA)>
+<!-- 独立的参数信息 -->
+<!ELEMENT proxy-param (#PCDATA)>
+<!-- 参数的名称、类型、如果是对象，对应对象的ID、说明 -->
+<!ATTLIST proxy-param name CDATA #REQUIRED
+					type CDATA #IMPLIED
+					obj CDATA #IMPLIED
+					desc CDATA #REQUIRED>
+<!-- 请求的单独的消息 -->
+<!ELEMENT message (name, desc, param*)>
+<!-- 消息的属性，id：ID，在服务端ID继承于proxy类、cid：辅ID，在客户端ID，独立，不继承proxy、parent与cparent一般同时出现，为相互的向上继承 -->
+<!ATTLIST message id ID #REQUIRED
+					cid ID #IMPLIED
+					parent CDATA "0"
+					cparent CDATA "0">
+<!-- 请求的名称 -->
+<!ELEMENT name (#PCDATA)>
+<!-- 请求的说明 -->
+<!ELEMENT desc (#PCDATA)>
+<!-- 独立的参数信息 -->
+<!ELEMENT param (#PCDATA)>
+<!-- 参数的名称、类型、如果是对象，对应对象的ID、验证类型集合：类型值|类型值...（1，是否存在；2，针对字符串，是否目标长度范围内（包含）；11，针对数值，是否在目标范围内（包含（<=，>=））；12，针对数值，是否在目标范围内（左包含（<=，>））；13，针对数值，是否在目标范围内（右包含（<，>=））；14，针对数值，是否在目标范围内（不包含（<，>））；15，针对数值，是否在目标范围内（大于（>））；16，针对数值，是否在目标范围内（大于等于（>=））；17，针对数值，是否在目标范围内（小于（<））；18，针对数值，是否在目标范围内（小于等于（<=）））、验证用数据：验证用数据|验证用数据...、说明 -->
+<!ATTLIST param name CDATA #REQUIRED
+					type CDATA #IMPLIED
+					obj CDATA #IMPLIED
+					validate CDATA #IMPLIED
+					valData CDATA #IMPLIED
+					desc CDATA #REQUIRED>

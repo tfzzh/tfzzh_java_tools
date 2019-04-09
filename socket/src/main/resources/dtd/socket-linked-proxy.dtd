@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- socket代理链接 -->
+<!-- 代理列表 -->
+<!ELEMENT proxys (proxy*)>
+<!-- 具体的代理信息 -->
+<!ELEMENT proxy (proxy-bean?, proxy-method, proxy-desc, proxy-param, link+)>
+<!-- 代理的属性，ID:先暂且认为主要是为了调用；proxy，代理所在空间；from，请求来源空间；target，代理到的空间； -->
+<!ATTLIST proxy id ID #REQUIRED
+					from CDATA #REQUIRED
+					proxy CDATA #REQUIRED
+					target CDATA #REQUIRED>
+<!-- 该代理对应的代理类（功能） -->
+<!ELEMENT proxy-bean (#PCDATA)>
+<!-- 该代理对应的代理方法 -->
+<!ELEMENT proxy-method (#PCDATA)>
+<!-- 该代理的介绍说明 -->
+<!ELEMENT proxy-desc (#PCDATA)>
+<!-- 代理使用的消息对象 -->
+<!ELEMENT proxy-param (#PCDATA)>
+<!-- 代理中的每个分请求，更多是针对proxyto中的空间 -->
+<!ELEMENT link (link-method, link-validate?, link-desc, link-param?)>
+<!-- 请求链接的标识码ID -->
+<!ATTLIST link id ID #REQUIRED>
+<!-- 目标请求操作类中的方法名 -->
+<!ELEMENT link-method (#PCDATA)>
+<!-- 目标请求操作类所需要进行的验证 -->
+<!ELEMENT link-validate (#PCDATA)>
+<!-- 目标请求的介绍说明 -->
+<!ELEMENT link-desc (#PCDATA)>
+<!-- 链接相关的参数 -->
+<!ELEMENT link-param (#PCDATA)>

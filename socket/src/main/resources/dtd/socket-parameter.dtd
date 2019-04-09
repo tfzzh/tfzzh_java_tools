@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- socket参数 -->
+<!-- 请求列表 -->
+<!ELEMENT messages (message*)>
+<!-- 请求的信息 -->
+<!ELEMENT message (name, desc, param*)>
+<!-- id：请求的编号、parent：请求父类、type：类型（普通、动态）、scope：所在空间 -->
+<!ATTLIST message id ID #REQUIRED
+					parent CDATA #IMPLIED
+					type (normal|dynamic) "normal"
+					scope CDATA #REQUIRED
+					messageType (socket|http) "socket">
+<!-- 请求的名称 -->
+<!ELEMENT name (#PCDATA)>
+<!-- 请求的说明 -->
+<!ELEMENT desc (#PCDATA)>
+<!-- 独立的参数信息 -->
+<!ELEMENT param (#PCDATA)>
+<!-- 参数的名称、类型、验证类型集合：类型值|类型值...（1，是否存在；2，针对字符串，是否目标长度范围内（包含）；11，针对数值，是否在目标范围内（包含（<=，>=））；12，针对数值，是否在目标范围内（左包含（<=，>））；13，针对数值，是否在目标范围内（右包含（<，>=））；14，针对数值，是否在目标范围内（不包含（<，>））；15，针对数值，是否在目标范围内（大于（>））；16，针对数值，是否在目标范围内（大于等于（>=））；17，针对数值，是否在目标范围内（小于（<））；18，针对数值，是否在目标范围内（小于等于（<=）））、如果是对象，对应对象的ID、验证用数据：验证用数据|验证用数据...、说明 -->
+<!ATTLIST param name CDATA #REQUIRED
+					type CDATA #IMPLIED
+					obj CDATA #IMPLIED
+					validate CDATA #IMPLIED
+					valData CDATA #IMPLIED
+					dyid CDATA #IMPLIED
+					desc CDATA #REQUIRED>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- socket链接 -->
+<!-- 链接列表 -->
+<!ELEMENT links (link*)>
+<!-- 具体的链接信息 -->
+<!ELEMENT link (bean, method, validate?, desc, param?)>
+<!-- 请求链接的标识码ID、是否守护连接、作用域、来源域 -->
+<!ATTLIST link id ID #REQUIRED
+					keep (true|false) "false"
+					scope CDATA #REQUIRED
+					from CDATA #REQUIRED>
+<!-- 对应请求操作类的Bean名称 -->
+<!ELEMENT bean (#PCDATA)>
+<!-- 目标请求操作类中的方法名 -->
+<!ELEMENT method (#PCDATA)>
+<!-- 目标请求需要的过滤操作，具体的规则随不同服务自己限定而不同，多种规则间使用“,”分割 -->
+<!ELEMENT validate (#PCDATA)>
+<!-- 目标请求的介绍说明 -->
+<!ELEMENT desc (#PCDATA)>
+<!-- 链接相关的参数 -->
+<!ELEMENT param (#PCDATA)>

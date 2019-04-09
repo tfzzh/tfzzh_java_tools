@@ -1,0 +1,184 @@
+/**
+ * @author XuWeijie
+ * @dateTime Apr 30, 2010 10:52:47 AM
+ */
+package com.tfzzh.dataconfig.freemarker.tools;
+
+import com.tfzzh.tools.Constants;
+
+/**
+ * @author XuWeijie
+ * @dateTime Apr 30, 2010 10:52:47 AM
+ */
+public interface ConfigDataTemplateConstants_bak {
+
+	/**
+	 * 待读模版文件编码<br />
+	 * 默认UTF-8<br />
+	 * 
+	 * @author XuWeijie
+	 * @dateTime May 1, 2010 7:37:19 PM
+	 */
+	String FILE_CODE = Constants.SYSTEM_CODE;
+
+	/**
+	 * 所用数据库编码<br />
+	 * 默认UTF-8<br />
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime Aug 13, 2014 9:16:25 PM
+	 */
+	String DATA_CODE = Constants.SYSTEM_CODE.replaceAll("[-_]", "");
+
+	/**
+	 * 模版的路径
+	 * 
+	 * @author Xu Weijie
+	 * @dateTime 2012-4-26 下午1:57:11
+	 */
+	String TEMPLATE_PATH = Messages.getString("ConfigDataTemplateConstants.TEMPLATE_PATH");
+
+	/**
+	 * 系统制作人：听风紫竹
+	 * 
+	 * @author XuWeijie
+	 * @dateTime May 3, 2010 3:08:21 PM
+	 */
+	String SYSTEM_AUTHOR = Messages.getString("ConfigDataTemplateConstants.SYSTEM_AUTHOR");
+
+	/**
+	 * 项目包名称
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2010-8-1 下午06:30:02
+	 */
+	String PROJECT_NAME = Messages.getString("ConfigDataTemplateConstants.PROJECT_NAME");
+
+	/**
+	 * 项目模版基本路径，为项目包所在目录
+	 * 
+	 * @author XuWeijie
+	 * @dateTime Sep 29, 2010 9:42:06 PM
+	 */
+	String PROJECT_TEMPLATE_PATH = Constants.OS_WIN ? ConfigDataTemplateConstants_bak.class.getResource("/").getPath().substring(1) : ConfigDataTemplateConstants_bak.class.getResource("/").getPath() + Messages.getString("ConfigDataTemplateConstants.PROJECT_TEMPLATE_PATH");
+
+	/**
+	 * 项目包前缀
+	 * 
+	 * @author XuWeijie
+	 * @dateTime May 3, 2010 4:26:29 PM
+	 */
+	String PROJECT_PACKAGE_PREFIX = Messages.getString("ConfigDataTemplateConstants.PROJECT_PACKAGE_PREFIX");
+
+	/**
+	 * 项目路径前缀
+	 * 
+	 * @author XuWeijie
+	 * @dateTime May 3, 2010 4:26:31 PM
+	 */
+	String PROJECT_PATH_PREFIX = ConfigDataTemplateConstants_bak.PROJECT_PACKAGE_PREFIX.replaceAll("[.]", "/");
+
+	/**
+	 * 逻辑文件路径叠加前缀
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-8 下午2:16:03
+	 */
+	String CLASSBEAN_PACKAGE_PREFIX = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_PACKAGE_PREFIX");
+
+	/**
+	 * 逻辑文件名称后缀
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-8 下午2:16:04
+	 */
+	String CLASSBEAN_CLASS_SUFFIX = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_CLASS_SUFFIX");
+
+	/**
+	 * 逻辑的元素文件名称
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime Sep 5, 2014 1:28:24 PM
+	 */
+	String CLASSBEAN_CLASS_ELEMENT_SUFFIX = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_CLASS_ELEMENT_SUFFIX");
+
+	/**
+	 * 实体文件名称后缀
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-28 下午8:15:55
+	 */
+	String CLASSBEAN_ENTITY_SUFFIX = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_ENTITY_SUFFIX");
+
+	/**
+	 * 关系实体文件名称后缀
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014年12月4日 下午8:45:31
+	 */
+	String CLASSBEAN_ENTITY_CORRELATION_SUFFIX = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_ENTITY_CORRELATION_SUFFIX");
+
+	/**
+	 * 实体文件名特殊字
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014年12月5日 下午8:35:33
+	 */
+	String CLASSBEAN_ENTITY_SPECIAL = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_ENTITY_SPECIAL");
+
+	/**
+	 * 关系实体文件名特殊字
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014年12月5日 下午8:35:34
+	 */
+	String CLASSBEAN_ENTITY_CORRELATION_SPECIAL = Messages.getString("ConfigDataTemplateConstants.CLASSBEAN_ENTITY_CORRELATION_SPECIAL");
+
+	/**
+	 * XML目标配置类文件默认存放路径
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime Aug 13, 2014 8:59:31 PM
+	 */
+	String BASE_XML_CONFIG_PATH = Messages.getString("ConfigDataTemplateConstants.BASE_XML_CONFIG_PATH");
+
+	/**
+	 * EXCEL目标配置类文件默认存放路径
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime Aug 15, 2014 11:09:34 AM
+	 */
+	String BASE_EXCEL_CONFIG_PATH = Messages.getString("ConfigDataTemplateConstants.BASE_EXCEL_CONFIG_PATH");
+
+	/**
+	 * 解析用dtd文件所在地址，相对配置文件基础路径
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-7 下午3:23:03
+	 */
+	String DTD_PATH = Messages.getString("ConfigDataTemplateConstants.DTD_PATH");
+
+	/**
+	 * 有效的xml文件的名称前缀
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-7 下午3:23:04
+	 */
+	String XML_PERFIX = Messages.getString("ConfigDataTemplateConstants.XML_PERFIX");
+
+	/**
+	 * XML源代码生成后所在源路径
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime 2014-3-7 下午4:29:24
+	 */
+	String SOURCE_BUILD_XML_SRC_PATH = Messages.getString("ConfigDataTemplateConstants.SOURCE_BUILD_XML_SRC_PATH");
+
+	/**
+	 * Excel源代码生成后所在源路径
+	 * 
+	 * @author Weijie Xu
+	 * @dateTime Aug 15, 2014 11:02:17 AM
+	 */
+	String SOURCE_BUILD_EXCEL_SRC_PATH = Messages.getString("ConfigDataTemplateConstants.SOURCE_BUILD_EXCEL_SRC_PATH");
+}
