@@ -126,6 +126,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	private boolean hasInput = false;
 
 	/**
+	 * 是否存在非String属性
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月17日 上午12:24:59
+	 */
+	private boolean hasNonString = false;
+
+	/**
 	 * 源码包路径
 	 * 
 	 * @author Weijie Xu
@@ -219,7 +227,8 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeAuthor 最后修改人
 	 * @param lastChangeDate 最后修改时间
 	 */
-	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String createAuthor, final String createDate,
+			final String lastChangeAuthor, final String lastChangeDate) {
 		super(id, name.indexOf("(") == -1 ? name : name.substring(0, name.indexOf("(")), desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		this.databaseName = databaseName;
 		this.dataTableName = dataTableName;
@@ -264,7 +273,8 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeDate 最后修改时间
 	 * @return 被创建的字段信息
 	 */
-	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final Integer isKey, final boolean isUuid, final boolean isIncrementKey, final boolean isUnique, final boolean isUnsigned, final boolean canNull, final String def, final String index, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final Integer isKey, final boolean isUuid, final boolean isIncrementKey, final boolean isUnique,
+			final boolean isUnsigned, final boolean canNull, final String def, final String index, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		final DataFieldTool f = new DataFieldTool(id, name, dataFieldName, fieldType, length, desc, null != isKey, isUuid, isIncrementKey, isUnsigned, canNull, def, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		// 放入列表
 		if (null != this.fieldMap.put(name, f)) {
@@ -316,7 +326,8 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeDate 最后修改时间
 	 * @return 被创建的字段信息
 	 */
-	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final boolean isUuid, final boolean isIncrementKey, final boolean isUnsigned, final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final boolean isUuid, final boolean isIncrementKey, final boolean isUnsigned,
+			final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		final DataFieldTool f = new DataFieldTool(id, name, dataFieldName, fieldType, length, desc, false, isUuid, isIncrementKey, isUnsigned, canNull, def, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		// 放入列表
 		if (null != this.fieldMap.put(name, f)) {
@@ -445,6 +456,17 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 */
 	public boolean isHasInput() {
 		return this.hasInput;
+	}
+
+	/**
+	 * 是否存在非String属性
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月17日 上午12:25:56
+	 * @return the hasNonString
+	 */
+	public boolean isHasNonString() {
+		return this.hasNonString;
 	}
 
 	/**
@@ -643,22 +665,22 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		}
 	}
 
-// /**
-// * 放入主键索引
-// *
-// * @author Xu Weijie
-// * @datetime 2018年1月23日_上午10:53:36
-// * @param fields 字段列表
-// */
-// public void putKeyIndex(final List<String> fields) {
-// int i = 1;
-// DataFieldTool df;
-// for (String f : fields) {
-// df = this.fieldMap.get(f);
-// ToolBeanExcelPool.getInstance().putBasicLinkKey(df.getType().getObjectTypeClass());
-// this.mainKey.putField(i++, df);
-// }
-// }
+	// /**
+	// * 放入主键索引
+	// *
+	// * @author Xu Weijie
+	// * @datetime 2018年1月23日_上午10:53:36
+	// * @param fields 字段列表
+	// */
+	// public void putKeyIndex(final List<String> fields) {
+	// int i = 1;
+	// DataFieldTool df;
+	// for (String f : fields) {
+	// df = this.fieldMap.get(f);
+	// ToolBeanExcelPool.getInstance().putBasicLinkKey(df.getType().getObjectTypeClass());
+	// this.mainKey.putField(i++, df);
+	// }
+	// }
 	/**
 	 * 得到所有字段信息
 	 * 
@@ -1280,7 +1302,8 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @param lastChangeAuthor 最后修改人
 		 * @param lastChangeDate 最后修改时间
 		 */
-		public DataFieldTool(final Long id, final String name, final String datafieldName, final String fieldType, final String length, final String desc, final boolean isKey, final boolean isUuid, final boolean isIncrement, final boolean isUnsigned, final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+		public DataFieldTool(final Long id, final String name, final String datafieldName, final String fieldType, final String length, final String desc, final boolean isKey, final boolean isUuid, final boolean isIncrement, final boolean isUnsigned,
+				final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 			super(id, name, desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 			this.datafieldName = datafieldName;
 			final List<String> fta = StringTools.splitToArray(fieldType, "|");
@@ -1316,6 +1339,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			this.isUnsigned = isUnsigned;
 			this.canNull = canNull;
 			this.def = this.datafieldType.getDefValue(def);
+			if (!this.isKey && !this.isIncrement) {
+				// 不是主键，也不是自增
+				if (!"String".equals(this.datafieldType.getClassFieldType().getObjectTypeName())) {
+					if (!DataBeanTool.this.hasNonString) {
+						DataBeanTool.this.hasNonString = true;
+					}
+				}
+			}
 		}
 
 		/**
