@@ -192,7 +192,6 @@ public class ToolBeanPoolExcelTool {
 	 * @dateTime Aug 13, 2014 5:02:57 PM
 	 * @param wb 工作空间信息
 	 */
-	@SuppressWarnings("deprecation")
 	private void readDataFieldData(final Workbook wb) {
 		// 所需工作表
 		final Sheet sheet = wb.getSheet("数据对象关系—表详细");
@@ -487,7 +486,6 @@ public class ToolBeanPoolExcelTool {
 	 * @param wb 工作空间信息
 	 * @param data 数据对象工具
 	 */
-	@SuppressWarnings("deprecation")
 	private void parseTableData(final Workbook wb, final DataBeanTool data) {
 		if (null == data) {
 			return;

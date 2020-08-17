@@ -867,6 +867,11 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			if (null == df) {
 				throw new ConfigurationException("Not Exists DataFieldName[" + f + "] in Data:" + super.getId());
 			}
+			if (!"String".equals(df.datafieldType.getClassFieldType().getObjectTypeName())) {
+				if (!this.hasNonString) {
+					this.hasNonString = true;
+				}
+			}
 			// if (df.isMainKey()) {
 			// this.dataKeyInd = i;
 			// }
@@ -1339,14 +1344,6 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			this.isUnsigned = isUnsigned;
 			this.canNull = canNull;
 			this.def = this.datafieldType.getDefValue(def);
-			if (!this.isKey && !this.isIncrement) {
-				// 不是主键，也不是自增
-				if (!"String".equals(this.datafieldType.getClassFieldType().getObjectTypeName())) {
-					if (!DataBeanTool.this.hasNonString) {
-						DataBeanTool.this.hasNonString = true;
-					}
-				}
-			}
 		}
 
 		/**
