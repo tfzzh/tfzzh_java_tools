@@ -779,13 +779,21 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		boolean isFirst;
 		this.mainKey.init();
 		final Set<DataFieldTool> ft = new HashSet<>(this.fieldMap.values());
+		// 一般索引列表
+		Map<String, DataFieldTool[]> normalMap = new LinkedHashMap<>();
 		for (final Entry<IndexTypeEnum, Map<String, DataFieldTool[]>> e : this.indexMap.entrySet()) {
 			type = e.getKey();
-			newMap = type.getResultMap();
+			if (type == IndexTypeEnum.Normal) {
+				newMap = normalMap;
+			} else {
+				newMap = type.getResultMap();
+			}
 			for (final DataFieldTool[] ifs : e.getValue().values()) {
 				keyName = new StringBuilder();
 				isFirst = true;
+				int cou = 0;
 				for (final DataFieldTool s : ifs) {
+					cou++;
 					if (isFirst) {
 						isFirst = false;
 					} else {
@@ -796,10 +804,26 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 						len = type.getIndexByteTotal(len, s.getByteLength());
 					}
 					keyName.append(s.getDatafieldName());
+					// 调整位置 xwj 2020-08-18
+					if (cou == ifs.length) {
+						newMap.put(keyName.toString(), ifs);
+					} else {
+						if (type == IndexTypeEnum.FullText) { // 针对非全文索引
+							continue;
+						}
+						// 认为是一般索引
+						DataFieldTool[] tifs = new DataFieldTool[cou];
+						System.arraycopy(ifs, 0, tifs, 0, cou);
+						normalMap.put(keyName.toString(), tifs);
+					}
 				}
-				newMap.put(keyName.toString(), ifs);
 			}
-			this.indexMap.put(type, newMap);
+			if (type != IndexTypeEnum.Normal) {
+				this.indexMap.put(type, newMap);
+			}
+		}
+		if (normalMap.size() > 0) {
+			this.indexMap.put(IndexTypeEnum.Normal, normalMap);
 		}
 		if (len > DataConfigConstants.INDEX_MAX_LENGTH) {
 			// 如果超长，抛出异常
