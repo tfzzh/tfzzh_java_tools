@@ -12,7 +12,7 @@
 
 	<properties>
 		<argLine>-Dfile.encoding=UTF-8</argLine>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>11</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.version>2.13.3</log4j2.version>
 		<freemarker.version>2.3.30</freemarker.version>
@@ -73,6 +73,17 @@
 		<module>web</module>
 		<module>socket</module>
 	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>rdc-releases</id>
+			<url>https://repo.rdc.aliyun.com/repository/134985-release-5BE6C2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>rdc-snapshots</id>
+			<url>https://repo.rdc.aliyun.com/repository/134985-snapshot-wqpVCQ/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
