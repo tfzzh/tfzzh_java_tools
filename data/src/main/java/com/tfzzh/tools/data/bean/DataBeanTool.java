@@ -227,8 +227,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeAuthor 最后修改人
 	 * @param lastChangeDate 最后修改时间
 	 */
-	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String createAuthor, final String createDate,
-			final String lastChangeAuthor, final String lastChangeDate) {
+	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		super(id, name.indexOf("(") == -1 ? name : name.substring(0, name.indexOf("(")), desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		this.databaseName = databaseName;
 		this.dataTableName = dataTableName;
@@ -273,8 +272,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeDate 最后修改时间
 	 * @return 被创建的字段信息
 	 */
-	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final Integer isKey, final boolean isUuid, final boolean isIncrementKey, final boolean isUnique,
-			final boolean isUnsigned, final boolean canNull, final String def, final String index, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final Integer isKey, final boolean isUuid, final boolean isIncrementKey, final int isUnique, final boolean isUnsigned, final boolean canNull, final String def, final String index, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		final DataFieldTool f = new DataFieldTool(id, name, dataFieldName, fieldType, length, desc, null != isKey, isUuid, isIncrementKey, isUnsigned, canNull, def, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		// 放入列表
 		if (null != this.fieldMap.put(name, f)) {
@@ -298,8 +296,8 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			this.hasUuid = true;
 		}
 		// 唯一判定
-		if (isUnique) {
-			this.putIndexData(IndexTypeEnum.Unique, dataFieldName, 1, f, 0);
+		if (isUnique != 0) {
+			this.putIndexData(IndexTypeEnum.Unique, dataFieldName, 1, f, 0, (isUnique > 0 ? false : true));
 		}
 		// 开始进行索引判定
 		this.putIndex(index, f);
@@ -326,8 +324,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeDate 最后修改时间
 	 * @return 被创建的字段信息
 	 */
-	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final boolean isUuid, final boolean isIncrementKey, final boolean isUnsigned,
-			final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+	public DataFieldTool addField(final Long id, final String name, final String dataFieldName, final String fieldType, final String length, final String desc, final boolean isUuid, final boolean isIncrementKey, final boolean isUnsigned, final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		final DataFieldTool f = new DataFieldTool(id, name, dataFieldName, fieldType, length, desc, false, isUuid, isIncrementKey, isUnsigned, canNull, def, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		// 放入列表
 		if (null != this.fieldMap.put(name, f)) {
@@ -586,7 +583,13 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 				// 进行字段消息拆分
 				ds = StringTools.split(ls, ",");
 				if (ds.length >= 4) {
-					this.putIndexData(IndexTypeEnum.getType(ds[1]), ds[0], Integer.parseInt(ds[2]), datafield, Integer.parseInt(ds[3]) - 1);
+					int ind = Integer.parseInt(ds[3]);
+					boolean sort = false;
+					if (ind < 0) {
+						sort = true;
+						ind = -ind;
+					}
+					this.putIndexData(IndexTypeEnum.getType(ds[1]), ds[0], Integer.parseInt(ds[2]), datafield, ind - 1, sort);
 				}
 			}
 		}
@@ -602,8 +605,9 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param len 索引的字段数量
 	 * @param datafield 相关的数据字段
 	 * @param ind 所在索引的位置
+	 * @param sort 正序或倒叙：false 为正序
 	 */
-	private void putIndexData(final IndexTypeEnum type, final String key, final int len, final DataFieldTool datafield, final int ind) {
+	private void putIndexData(final IndexTypeEnum type, final String key, final int len, final DataFieldTool datafield, int ind, boolean sort) {
 		Map<String, DataFieldTool[]> map = this.indexMap.get(type);
 		if (null == map) {
 			// 都是直接创建
@@ -620,7 +624,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			}
 			str[ind] = datafield;
 		}
-		datafield.indexList.add(new FieldIndexTool(type, key, len, ind + 1));
+		datafield.indexList.add(new FieldIndexTool(type, key, len, ind + 1, sort));
 	}
 
 	/**
@@ -643,7 +647,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			// 得到相关的字段对象
 			df = this.fieldMap.get(ent.getKey());
 			// 认为一定是存在的
-			this.putIndexData(type, ind.toString(), c, df, i++);
+			this.putIndexData(type, ind.toString(), c, df, i++, false); // 因为是xml过来的老版，所以暂定都默认的false
 		}
 	}
 
@@ -780,7 +784,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		this.mainKey.init();
 		final Set<DataFieldTool> ft = new HashSet<>(this.fieldMap.values());
 		// 一般索引列表
-		Map<String, DataFieldTool[]> normalMap = new LinkedHashMap<>();
+		final Map<String, DataFieldTool[]> normalMap = new LinkedHashMap<>();
 		for (final Entry<IndexTypeEnum, Map<String, DataFieldTool[]>> e : this.indexMap.entrySet()) {
 			type = e.getKey();
 			if (type == IndexTypeEnum.Normal) {
@@ -812,7 +816,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 							continue;
 						}
 						// 认为是一般索引
-						DataFieldTool[] tifs = new DataFieldTool[cou];
+						final DataFieldTool[] tifs = new DataFieldTool[cou];
 						System.arraycopy(ifs, 0, tifs, 0, cou);
 						normalMap.put(keyName.toString(), tifs);
 					}
@@ -1331,8 +1335,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @param lastChangeAuthor 最后修改人
 		 * @param lastChangeDate 最后修改时间
 		 */
-		public DataFieldTool(final Long id, final String name, final String datafieldName, final String fieldType, final String length, final String desc, final boolean isKey, final boolean isUuid, final boolean isIncrement, final boolean isUnsigned,
-				final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+		public DataFieldTool(final Long id, final String name, final String datafieldName, final String fieldType, final String length, final String desc, final boolean isKey, final boolean isUuid, final boolean isIncrement, final boolean isUnsigned, final boolean canNull, final String def, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 			super(id, name, desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 			this.datafieldName = datafieldName;
 			final List<String> fta = StringTools.splitToArray(fieldType, "|");
@@ -1743,12 +1746,20 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		private final int index;
 
 		/**
+		 * 正序或倒叙，默认 false 为正序
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2022年6月24日 下午7:24:12
+		 */
+		private boolean sort;
+
+		/**
 		 * @author XuWeijie
 		 * @datetime 2015年9月17日_下午4:08:10
 		 * @param type 索引类型
 		 */
 		public FieldIndexTool(final IndexTypeEnum type) {
-			this(type, null, 0, 0);
+			this(type, null, 0, 0, false);
 		}
 
 		/**
@@ -1758,12 +1769,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @param name 索引名字
 		 * @param max 所相关字段总量
 		 * @param index 所在字段顺位
+		 * @param sort 正序或倒叙：false 为正序
 		 */
-		public FieldIndexTool(final IndexTypeEnum type, final String name, final int max, final int index) {
+		public FieldIndexTool(final IndexTypeEnum type, final String name, final int max, final int index, final boolean sort) {
 			this.type = type;
 			this.name = name;
 			this.max = max;
 			this.index = index;
+			this.sort = sort;
 		}
 
 		/**
@@ -1809,6 +1822,17 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		public int getIndex() {
 			return this.index;
 		}
+
+		/**
+		 * 得到正序或倒叙，默认 false 为正序
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2022年6月29日 下午4:41:44
+		 * @return the sort
+		 */
+		public boolean getSort() {
+			return this.sort;
+		}
 	}
 
 	/**
@@ -1834,6 +1858,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @datetime 2015年12月9日_下午1:30:24
 		 */
 		private final List<DataFieldTool> fs = new ArrayList<>(2);
+
+		/**
+		 * 需要倒序的
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2022年6月29日 下午5:02:53
+		 */
+		private Set<Integer> sorts = new HashSet<>();
 
 		/**
 		 * 拥有的总量
@@ -1874,8 +1906,12 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @param index 所在位置
 		 * @param field 字段信息
 		 */
-		private void putField(final Integer index, final DataFieldTool field) {
+		private void putField(Integer index, final DataFieldTool field) {
 			this.count++;
+			if (index < 0) {
+				index = -index;
+				this.sorts.add(index);
+			}
 			if (null != this.datas.put(index, field)) {
 				throw new ConfigurationException("Exists DataField Primary key Index[" + DataBeanTool.this.dataTableName + "] in Data:" + field.datafieldName);
 			}
@@ -1890,6 +1926,10 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		private void init() {
 			final StringBuilder fn = new StringBuilder(this.datas.size() * 16);
 			boolean isFirst = true;
+			DataFieldTool[] normal = null;
+			if (this.count > 1) {
+				normal = new DataFieldTool[this.count - 1];
+			}
 			int ind = 1;
 			for (final DataFieldTool dft : this.datas.values()) {
 				if (isFirst) {
@@ -1897,9 +1937,25 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 				} else {
 					fn.append('_');
 				}
+				if ((null != normal) && (normal.length >= ind)) {
+					normal[ind - 1] = dft;
+				}
 				fn.append(dft.getDatafieldName());
-				dft.indexList.add(new FieldIndexTool(IndexTypeEnum.Primary, "primary", this.count, ind++));
+				boolean sort = false;
+				if (this.sorts.contains(Integer.valueOf(ind))) {
+					sort = true;
+				}
+				dft.indexList.add(new FieldIndexTool(IndexTypeEnum.Primary, "primary", this.count, ind++, sort));
 				this.fs.add(dft);
+			}
+			if (null != normal) {
+				final Map<IndexTypeEnum, Map<String, DataFieldTool[]>> indexMap = DataBeanTool.this.indexMap;
+				Map<String, DataFieldTool[]> norIndex = indexMap.get(IndexTypeEnum.Normal);
+				if (null == norIndex) {
+					norIndex = new HashMap<>();
+					indexMap.put(IndexTypeEnum.Normal, norIndex);
+				}
+				norIndex.put("primary", normal);
 			}
 			if (this.fs.size() == 1) {
 				this.dataObjectType = this.fs.get(0).getType().getObjectTypeName();

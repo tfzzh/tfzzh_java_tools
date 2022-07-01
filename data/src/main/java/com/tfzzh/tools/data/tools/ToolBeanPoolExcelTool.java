@@ -219,7 +219,7 @@ public class ToolBeanPoolExcelTool {
 		// 主键
 		Integer isKey;
 		// 唯一
-		boolean isUnique;
+		Integer isUnique;
 		// 自增
 		boolean isIncrementKey;
 		// UUID
@@ -381,9 +381,9 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 11
 			if (null != cell) {
 				// isUnique = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUnique = cell.getCellTypeEnum() != CellType.BLANK;
+				isUnique = Integer.valueOf((int) cell.getNumericCellValue());
 			} else {
-				isUnique = false;
+				isUnique = 0;
 			}
 			// 自增
 			cell = row.getCell(++colInd); // 12
