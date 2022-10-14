@@ -971,7 +971,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 * @dateTime Aug 15, 2014 4:55:31 PM
 	 */
 	public void init() {
-		// TODO 需要相关逻辑，还需要补足一些逻辑
+		// XXX 需要相关逻辑，还需要补足一些逻辑
 		for (final LogicFieldTool t : this.fieldMap.values()) {
 			t.logicInit();
 		}
@@ -989,7 +989,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 * @dateTime Aug 15, 2014 5:11:44 PM
 	 */
 	public void secondInit() {
-		// TODO 需要相关逻辑
+		// XXX 需要相关逻辑
 	}
 
 	/**

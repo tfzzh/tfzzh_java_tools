@@ -76,8 +76,6 @@ public class SystemFunctionManagerImplTemplate extends BaseTemplate {
 	}
 
 	/**
-	 * TODO data 为暂时的定名
-	 * 
 	 * @author XuWeijie
 	 * @dateTime May 3, 2010 3:03:29 PM
 	 * @see com.tfzzh.tools.data.template.BaseTemplate#getOutFilePath()
