@@ -15,8 +15,8 @@
 		<jdk.version>11</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.version>2.13.3</log4j2.version>
-		<freemarker.version>2.3.30</freemarker.version>
-		<poi.version>3.17</poi.version>
+		<freemarker.version>2.3.31</freemarker.version><!--2022-10-15 -->
+		<poi.version>5.2.3</poi.version><!--2022-10-15 -->
 		
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<project.tools.version>0.0.1-SNAPSHOT</project.tools.version>

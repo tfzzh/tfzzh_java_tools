@@ -269,7 +269,7 @@ public class ToolBeanPoolExcelTool {
 				cell = row.getCell(colInd += 3); // 3
 				id = (long) cell.getNumericCellValue();
 				// } else if ((null != (cell = row.getCell(0))) && (cell.getCellType() != Cell.CELL_TYPE_BLANK)) {
-			} else if ((null != (cell = row.getCell(0))) && (cell.getCellTypeEnum() != CellType.BLANK)) {
+			} else if ((null != (cell = row.getCell(0))) && (cell.getCellType() != CellType.BLANK)) {
 				// } else if ((null != (cell = row.getCell(0))) && (!"".equals(cell.getStringCellValue()))) {
 				// 无空行而开启了新数据
 				colInd = 0;
@@ -288,7 +288,7 @@ public class ToolBeanPoolExcelTool {
 				// 属性ID
 				cell = row.getCell(colInd); // 3
 				// if ((null == cell) || (cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
-				if ((null == cell) || (cell.getCellTypeEnum() == CellType.BLANK)) {
+				if ((null == cell) || (cell.getCellType() == CellType.BLANK)) {
 					// if ((null == cell) || ("".equals(cell.getStringCellValue()))) {
 					// 分割行，需要换行，并进入到下一个对象
 					// 处理相关表数据
@@ -335,7 +335,7 @@ public class ToolBeanPoolExcelTool {
 				// fieldLength = "";
 				// break;
 				// }
-				switch (cell.getCellTypeEnum()) {
+				switch (cell.getCellType()) {
 				case NUMERIC:
 					fieldLength = String.valueOf((int) cell.getNumericCellValue());
 					break;
@@ -363,7 +363,7 @@ public class ToolBeanPoolExcelTool {
 				// isKey = null;
 				// break;
 				// }
-				switch (cell.getCellTypeEnum()) {
+				switch (cell.getCellType()) {
 				case NUMERIC:
 					isKey = (int) cell.getNumericCellValue();
 					break;
@@ -389,7 +389,7 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 12
 			if (null != cell) {
 				// isIncrementKey = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isIncrementKey = cell.getCellTypeEnum() != CellType.BLANK;
+				isIncrementKey = cell.getCellType() != CellType.BLANK;
 			} else {
 				isIncrementKey = false;
 			}
@@ -397,7 +397,7 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 13
 			if (null != cell) {
 				// isUuid = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUuid = cell.getCellTypeEnum() != CellType.BLANK;
+				isUuid = cell.getCellType() != CellType.BLANK;
 			} else {
 				isUuid = false;
 			}
@@ -405,7 +405,7 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 14
 			if (null != cell) {
 				// isUnsigned = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUnsigned = cell.getCellTypeEnum() != CellType.BLANK;
+				isUnsigned = cell.getCellType() != CellType.BLANK;
 			} else {
 				isUnsigned = false;
 			}
@@ -413,7 +413,7 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 15
 			if (null != cell) {
 				// canNull = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				canNull = cell.getCellTypeEnum() != CellType.BLANK;
+				canNull = cell.getCellType() != CellType.BLANK;
 			} else {
 				canNull = false;
 			}
@@ -431,7 +431,7 @@ public class ToolBeanPoolExcelTool {
 				// } else {
 				// def = "";
 				// }
-				switch (cell.getCellTypeEnum()) {
+				switch (cell.getCellType()) {
 				case NUMERIC:
 					def = String.valueOf(cell.getNumericCellValue());
 					break;
@@ -536,13 +536,13 @@ public class ToolBeanPoolExcelTool {
 						// // 其他类型进行下列判定
 						// continue;
 						// }
-						switch (cell.getCellTypeEnum()) {
+						switch (cell.getCellType()) {
 						case STRING:
 							// 是字符
 							content = cell.getStringCellValue();
 							break;
 						case FORMULA: {
-							switch (cell.getCachedFormulaResultTypeEnum()) {
+							switch (cell.getCachedFormulaResultType()) {
 							case STRING:
 								// 是文字类型
 								content = cell.getStringCellValue();
@@ -619,7 +619,7 @@ public class ToolBeanPoolExcelTool {
 						// default:
 						// continue;
 						// }
-						switch (cell.getCellTypeEnum()) {
+						switch (cell.getCellType()) {
 						case BLANK:
 							dataLine.add("");
 							continue;
@@ -633,7 +633,7 @@ public class ToolBeanPoolExcelTool {
 							dataLine.add(cell.getStringCellValue());
 							continue;
 						case FORMULA: {
-							switch (cell.getCachedFormulaResultTypeEnum()) {
+							switch (cell.getCachedFormulaResultType()) {
 							case NUMERIC:
 								dataLine.add(String.valueOf(cell.getNumericCellValue()));
 								continue;
