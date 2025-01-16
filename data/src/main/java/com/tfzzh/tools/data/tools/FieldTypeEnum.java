@@ -18,6 +18,7 @@ import com.tfzzh.tools.StringTools;
  * @dateTime 2014-3-6 下午5:18:00
  */
 public enum FieldTypeEnum implements AttributeOutput {
+
 	/**
 	 * 字符串类型
 	 * 
@@ -2114,7 +2115,6 @@ public enum FieldTypeEnum implements AttributeOutput {
 
 		@Override
 		public String toSocketTypeName() {
-			// TODO 有所调整
 			return "arraybs|byte";
 		}
 

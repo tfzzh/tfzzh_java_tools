@@ -13,6 +13,7 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime Aug 13, 2014 3:03:23 PM
  */
 public enum CharacterEncodingTypeEnum {
+
 	/**
 	 * 正常字符
 	 * 

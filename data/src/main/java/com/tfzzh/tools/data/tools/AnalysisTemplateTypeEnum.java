@@ -13,6 +13,7 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime Sep 5, 2014 4:40:03 PM
  */
 public enum AnalysisTemplateTypeEnum {
+
 	/**
 	 * 模板类型1<br />
 	 * 解析出为一个对象，有字段分割符“f”，内容分隔符“v”内容分：字段名、值、值类型三部分<br />

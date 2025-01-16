@@ -483,7 +483,7 @@ public class ProxyRequestToolBean {
 		 */
 		@Override
 		public String getBeanName() {
-			// XXX 需要完善相关逻辑
+			// FIXME 需要完善相关逻辑
 			return null;
 		}
 	}

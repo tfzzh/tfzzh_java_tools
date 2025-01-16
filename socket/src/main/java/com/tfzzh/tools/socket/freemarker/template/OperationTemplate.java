@@ -40,7 +40,7 @@ public class OperationTemplate extends BaseTemplate {
 		super.setParams();
 		super.params.put("projectPath", SocketTemplateConstants.PROJECT_PACKAGE_PREFIX);
 		super.params.put("bean", this.bean);
-		// TODO 当前这个方式并不合理，之后调整——xuweijie
+		// TSK 当前这个方式并不合理，之后调整——xuweijie
 		super.params.put("localScope", ScopeTool.getInstance().getScopeType("l"));
 	}
 

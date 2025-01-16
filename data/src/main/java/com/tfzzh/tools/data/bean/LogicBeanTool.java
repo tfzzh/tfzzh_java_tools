@@ -512,10 +512,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 	public LogicFieldTool addIdleField(final Long id, final String name, final String type, final String desc, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		final LogicFieldTool f = new LogicFieldTool(id, name, FieldTypeEnum.getType(type), desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		// 验证是否存在同ID数据
-		if (this.fieldMap.containsKey(f.getId())) {
-			throw new ConfigurationException("Exists LogicFieldId[" + f.getId() + "] in Logic:" + super.getId());
-		}
-		if (null != this.idleFieldMap.put(f.getId(), f)) {
+		if (this.fieldMap.containsKey(f.getId()) || (null != this.idleFieldMap.put(f.getId(), f))) {
 			throw new ConfigurationException("Exists LogicFieldId[" + f.getId() + "] in Logic:" + super.getId());
 		}
 		return f;
@@ -971,7 +968,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 * @dateTime Aug 15, 2014 4:55:31 PM
 	 */
 	public void init() {
-		// XXX 需要相关逻辑，还需要补足一些逻辑
+		// FIXME 需要相关逻辑，还需要补足一些逻辑
 		for (final LogicFieldTool t : this.fieldMap.values()) {
 			t.logicInit();
 		}
@@ -989,7 +986,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 * @dateTime Aug 15, 2014 5:11:44 PM
 	 */
 	public void secondInit() {
-		// XXX 需要相关逻辑
+		// FIXME 需要相关逻辑
 	}
 
 	/**

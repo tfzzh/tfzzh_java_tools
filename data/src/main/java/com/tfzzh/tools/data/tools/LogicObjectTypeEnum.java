@@ -13,6 +13,7 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime Aug 21, 2014 10:04:48 AM
  */
 public enum LogicObjectTypeEnum {
+
 	/**
 	 * 与数据相关的对象
 	 * 

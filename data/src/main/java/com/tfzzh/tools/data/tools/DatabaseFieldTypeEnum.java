@@ -14,6 +14,7 @@ import com.tfzzh.exception.NotAvailableOperationModeException;
  * @dateTime Aug 12, 2014 7:26:16 PM
  */
 public enum DatabaseFieldTypeEnum {
+
 	/**
 	 * 定长字串
 	 * 
@@ -147,7 +148,7 @@ public enum DatabaseFieldTypeEnum {
 		}
 	},
 	/**
-	 * Integer类型，，针对一些NoSQL数据库
+	 * Integer类型，针对一些NoSQL数据库
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年12月30日 上午11:15:43

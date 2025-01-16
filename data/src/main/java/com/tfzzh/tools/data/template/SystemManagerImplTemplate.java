@@ -60,6 +60,6 @@ public class SystemManagerImplTemplate extends BaseTemplate {
 	 */
 	@Override
 	protected String getOutFileName() {
-		return "SystemDataManagerImpl.java";
+		return "ProjectDataManagerImpl.java";
 	}
 }

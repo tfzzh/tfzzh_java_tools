@@ -60,6 +60,6 @@ public class SystemNoSqlManagerImplTemplate extends BaseTemplate {
 	 */
 	@Override
 	protected String getOutFileName() {
-		return "SystemNoSqlDataManagerImpl.java";
+		return "ProjectNoSqlDataManagerImpl.java";
 	}
 }

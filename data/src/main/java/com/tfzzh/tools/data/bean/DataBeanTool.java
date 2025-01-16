@@ -1,7 +1,3 @@
-/**
- * @author Weijie Xu
- * @dateTime Aug 12, 2014 6:45:44 PM
- */
 package com.tfzzh.tools.data.bean;
 
 import java.util.ArrayList;
@@ -26,6 +22,10 @@ import com.tfzzh.tools.data.tools.FieldTypeEnum;
 import com.tfzzh.tools.data.tools.IndexTypeEnum;
 import com.tfzzh.tools.data.tools.ToolBeanExcelPool;
 
+/**
+ * @author Weijie Xu
+ * @dateTime Aug 12, 2014 6:45:44 PM
+ */
 /**
  * 数据对象工具<br />
  * 与数据库数据直接相关的对象<br />
@@ -1219,6 +1219,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		private final DatabaseFieldTypeEnum datafieldType;
 
 		/**
+		 * 数据相关java类中字段的类型
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2024年2月11日 12:45:40
+		 */
+		private final FieldTypeEnum dateClassFieldType;
+
+		/**
 		 * 所相关的数据对象ID
 		 * 
 		 * @author tfzzh
@@ -1363,6 +1371,37 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 				// 存在List类型字段
 				DataBeanTool.this.hasList = true;
 			}
+			FieldTypeEnum fte = this.datafieldType.getClassFieldType();
+			if (!canNull) {
+				// 是不可空的
+				if (!isKey && !isIncrement) {
+					// 非主键类 且 非自增
+					// 因为不可空
+					switch (fte) {
+					case OjInteger:
+						fte = FieldTypeEnum.BsInt;
+						break;
+					case OjLong:
+						fte = FieldTypeEnum.BsLong;
+						break;
+					case OjShort:
+						fte = FieldTypeEnum.BsShort;
+						break;
+					case OjFloat:
+						fte = FieldTypeEnum.BsFloat;
+						break;
+					case OjDouble:
+						fte = FieldTypeEnum.BsDouble;
+						break;
+					case OjBoolean:
+						fte = FieldTypeEnum.BsBoolean;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+			this.dateClassFieldType = fte;
 			this.length = length;
 			this.desc = super.getDesc().trim().split("[：；]");
 			this.isKey = isKey;
@@ -1434,6 +1473,17 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			} else {
 				return this.datafieldType.getClassFieldType().getObjectTypeName();
 			}
+		}
+
+		/**
+		 * 得到数据相关java类中字段的类型
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2024年2月11日 12:50:48
+		 * @return the dateClassFieldType
+		 */
+		public FieldTypeEnum getDateClassFieldType() {
+			return this.dateClassFieldType;
 		}
 
 		/**

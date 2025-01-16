@@ -20,6 +20,7 @@ import com.tfzzh.tools.data.bean.tools.LogicConditionBean;
  * @dateTime 2014-3-10 下午4:47:15
  */
 public enum FieldConditionTypeEnum {
+
 	/**
 	 * 值类型<br />
 	 * 对应的为目标值<br />

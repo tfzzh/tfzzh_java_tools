@@ -18,6 +18,7 @@ import com.tfzzh.tools.data.bean.DataBeanTool.DataFieldTool;
  * @dateTime Aug 13, 2014 10:33:05 AM
  */
 public enum IndexTypeEnum {
+
 	/**
 	 * 普通索引
 	 * 

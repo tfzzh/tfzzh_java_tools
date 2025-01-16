@@ -12,7 +12,8 @@
 
 	<properties>
 		<argLine>-Dfile.encoding=UTF-8</argLine>
-		<jdk.version>11</jdk.version>
+		<!-- <jdk.version>11</jdk.version> -->
+		<jdk.version>21</jdk.version><!-- 2024-02-14 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.version>2.13.3</log4j2.version>
 		<freemarker.version>2.3.31</freemarker.version><!--2022-10-15 -->

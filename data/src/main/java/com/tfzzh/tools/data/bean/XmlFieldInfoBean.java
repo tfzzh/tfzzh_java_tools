@@ -4,8 +4,8 @@
  */
 package com.tfzzh.tools.data.bean;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.annotation.JSONField;
 
 /**
  * XML配置相关字段信息对象
@@ -252,26 +252,26 @@ public class XmlFieldInfoBean {
 		this.length = length;
 	}
 
-// /**
-// * 得到是否主键
-// *
-// * @author Xu Weijie
-// * @datetime 2018年1月18日_下午1:49:52
-// * @return the key
-// */
-// public boolean isKey() {
-// return this.key;
-// }
-// /**
-// * 设置是否主键
-// *
-// * @author Xu Weijie
-// * @datetime 2018年1月18日_下午1:49:52
-// * @param key the key to set
-// */
-// public void setKey(boolean key) {
-// this.key = key;
-// }
+	// /**
+	// * 得到是否主键
+	// *
+	// * @author Xu Weijie
+	// * @datetime 2018年1月18日_下午1:49:52
+	// * @return the key
+	// */
+	// public boolean isKey() {
+	// return this.key;
+	// }
+	// /**
+	// * 设置是否主键
+	// *
+	// * @author Xu Weijie
+	// * @datetime 2018年1月18日_下午1:49:52
+	// * @param key the key to set
+	// */
+	// public void setKey(boolean key) {
+	// this.key = key;
+	// }
 	/**
 	 * 得到是否自增
 	 *

@@ -15,6 +15,7 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime Aug 14, 2014 7:30:09 PM
  */
 public enum LoadingOpportunityEnum {
+
 	/**
 	 * 初始化时加载
 	 * 
