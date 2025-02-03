@@ -42,6 +42,19 @@ public enum DatabaseFieldTypeEnum {
 		public String getRsTypeName() {
 			return "String";
 		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
+		}
 	},
 	/**
 	 * 不定常字串
@@ -70,6 +83,19 @@ public enum DatabaseFieldTypeEnum {
 		public String getRsTypeName() {
 			return "String";
 		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
+		}
 	},
 	/**
 	 * String类型，针对一些NoSQL数据库
@@ -97,6 +123,19 @@ public enum DatabaseFieldTypeEnum {
 		@Override
 		public String getRsTypeName() {
 			return "String";
+		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
 		}
 	},
 	/**
@@ -496,6 +535,19 @@ public enum DatabaseFieldTypeEnum {
 		public String getRsTypeName() {
 			return "String";
 		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
+		}
 	},
 	/**
 	 * len：16777215
@@ -524,6 +576,19 @@ public enum DatabaseFieldTypeEnum {
 		public String getRsTypeName() {
 			return "String";
 		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
+		}
 	},
 	/**
 	 * len：4294967295
@@ -551,6 +616,19 @@ public enum DatabaseFieldTypeEnum {
 		@Override
 		public String getRsTypeName() {
 			return "String";
+		}
+
+		@Override
+		public String getDefValue(final String defValue) {
+			if (null == defValue) {
+				return null;
+			}
+			if (defValue.length() > 1) {
+				if (defValue.endsWith(".0")) {
+					return defValue.substring(0, defValue.length() - 2);
+				}
+			}
+			return defValue;
 		}
 	},
 	/**
