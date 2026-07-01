@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.tfzzh.exception.ConfigurationException;
 import com.tfzzh.tools.DateFormat;
 import com.tfzzh.tools.FileTools;
+import com.tfzzh.tools.StringTools;
 import com.tfzzh.tools.data.bean.DataBeanTool;
 import com.tfzzh.tools.data.bean.DataCorrelationBeanTool;
 import com.tfzzh.tools.data.bean.LogicBeanTool;
@@ -269,7 +270,7 @@ public class ToolBeanPoolExcelTool {
 				cell = row.getCell(colInd += 3); // 3
 				id = (long) cell.getNumericCellValue();
 				// } else if ((null != (cell = row.getCell(0))) && (cell.getCellType() != Cell.CELL_TYPE_BLANK)) {
-			} else if ((null != (cell = row.getCell(0))) && (cell.getCellType() != CellType.BLANK)) {
+			} else if ((null != (cell = row.getCell(0))) && (cell.getCellType() != CellType.BLANK) && ((cell.getCellType() == CellType.STRING) && !StringTools.isNullOrEmpty(cell.getStringCellValue()))) {
 				// } else if ((null != (cell = row.getCell(0))) && (!"".equals(cell.getStringCellValue()))) {
 				// 无空行而开启了新数据
 				colInd = 0;
@@ -335,17 +336,11 @@ public class ToolBeanPoolExcelTool {
 				// fieldLength = "";
 				// break;
 				// }
-				switch (cell.getCellType()) {
-				case NUMERIC:
-					fieldLength = String.valueOf((int) cell.getNumericCellValue());
-					break;
-				case STRING:
-					fieldLength = cell.getStringCellValue();
-					break;
-				default:
-					fieldLength = "";
-					break;
-				}
+				fieldLength = switch (cell.getCellType()) {
+				case NUMERIC -> String.valueOf((int) cell.getNumericCellValue());
+				case STRING -> cell.getStringCellValue();
+				default -> "";
+				};
 			} else {
 				fieldLength = "";
 			}
@@ -368,7 +363,12 @@ public class ToolBeanPoolExcelTool {
 					isKey = (int) cell.getNumericCellValue();
 					break;
 				case STRING:
-					isKey = Integer.valueOf(cell.getStringCellValue());
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						isKey = null;
+					} else {
+						isKey = Integer.valueOf(cv);
+					}
 					break;
 				default:
 					isKey = null;
@@ -381,7 +381,22 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 11
 			if (null != cell) {
 				// isUnique = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUnique = Integer.valueOf((int) cell.getNumericCellValue());
+				switch (cell.getCellType()) {
+				case NUMERIC:
+					isUnique = Integer.valueOf((int) cell.getNumericCellValue());
+					break;
+				case STRING:
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						isUnique = 0;
+					} else {
+						isUnique = Integer.valueOf(cv);
+					}
+					break;
+				default:
+					isUnique = 0;
+					break;
+				}
 			} else {
 				isUnique = 0;
 			}
@@ -389,7 +404,22 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 12
 			if (null != cell) {
 				// isIncrementKey = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isIncrementKey = cell.getCellType() != CellType.BLANK;
+				switch (cell.getCellType()) {
+				case BLANK:
+					isIncrementKey = false;
+					break;
+				case STRING:
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						isIncrementKey = false;
+					} else {
+						isIncrementKey = true;
+					}
+					break;
+				default:
+					isIncrementKey = true;
+				}
+				// isIncrementKey = cell.getCellType() != CellType.BLANK;
 			} else {
 				isIncrementKey = false;
 			}
@@ -397,7 +427,22 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 13
 			if (null != cell) {
 				// isUuid = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUuid = cell.getCellType() != CellType.BLANK;
+				switch (cell.getCellType()) {
+				case BLANK:
+					isUuid = false;
+					break;
+				case STRING:
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						isUuid = false;
+					} else {
+						isUuid = true;
+					}
+					break;
+				default:
+					isUuid = true;
+				}
+				// isUuid = cell.getCellType() != CellType.BLANK;
 			} else {
 				isUuid = false;
 			}
@@ -405,7 +450,22 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 14
 			if (null != cell) {
 				// isUnsigned = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				isUnsigned = cell.getCellType() != CellType.BLANK;
+				switch (cell.getCellType()) {
+				case BLANK:
+					isUnsigned = false;
+					break;
+				case STRING:
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						isUnsigned = false;
+					} else {
+						isUnsigned = true;
+					}
+					break;
+				default:
+					isUnsigned = true;
+				}
+				// isUnsigned = cell.getCellType() != CellType.BLANK;
 			} else {
 				isUnsigned = false;
 			}
@@ -413,7 +473,22 @@ public class ToolBeanPoolExcelTool {
 			cell = row.getCell(++colInd); // 15
 			if (null != cell) {
 				// canNull = !(cell.getCellType() == Cell.CELL_TYPE_BLANK);
-				canNull = cell.getCellType() != CellType.BLANK;
+				switch (cell.getCellType()) {
+				case BLANK:
+					canNull = false;
+					break;
+				case STRING:
+					final String cv = cell.getStringCellValue();
+					if (StringTools.isNullOrEmpty(cv)) {
+						canNull = false;
+					} else {
+						canNull = true;
+					}
+					break;
+				default:
+					canNull = true;
+				}
+				// canNull = cell.getCellType() != CellType.BLANK;
 			} else {
 				canNull = false;
 			}
@@ -431,18 +506,12 @@ public class ToolBeanPoolExcelTool {
 				// } else {
 				// def = "";
 				// }
-				switch (cell.getCellType()) {
-				case NUMERIC:
-					def = String.valueOf(cell.getNumericCellValue());
-					break;
-				case STRING:
-					def = cell.getStringCellValue();
-					break;
-				case BLANK:
-				default:
-					def = "";
-					break;
-				}
+				def = switch (cell.getCellType()) {
+				case NUMERIC -> String.valueOf(cell.getNumericCellValue());
+				case STRING -> cell.getStringCellValue();
+				case BLANK -> "";
+				default -> "";
+				};
 			} else {
 				def = "";
 			}

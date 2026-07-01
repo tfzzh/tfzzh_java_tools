@@ -206,9 +206,7 @@ public abstract class BaseTemplate {
 					CoreLog.getInstance().debug(this.getClass(), "++Create File[", Integer.toString(++BaseTemplate.createCount), "]: ", this.newFile.getName(), " >> ", this.newFile.getCanonicalPath());
 				}
 			}
-		} catch (final TemplateException e) {
-			e.printStackTrace();
-		} catch (final IOException e) {
+		} catch (final TemplateException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -272,9 +270,7 @@ public abstract class BaseTemplate {
 			// 在这里进行文件创建
 			return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), Constants.SYSTEM_CODE));
 			// return new BufferedWriter(osw);
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (final UnsupportedEncodingException e) {
+		} catch (final FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;

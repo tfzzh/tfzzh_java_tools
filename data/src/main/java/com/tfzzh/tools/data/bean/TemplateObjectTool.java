@@ -102,7 +102,7 @@ public abstract class TemplateObjectTool {
 		this.name = name.substring(0, 1).toLowerCase() + name.substring(1);
 		this.proName = name.substring(0, 1).toUpperCase() + name.substring(1);
 		this.constantName = StringTools.splitStringWhitUpper(name);
-		this.desc = desc.replaceAll("\"", "\\\\\"");
+		this.desc = desc.replace("\"", "\\\"");
 		this.createAuthor = createAuthor;
 		this.createDate = createDate;
 		this.lastChangeAuthor = lastChangeAuthor;

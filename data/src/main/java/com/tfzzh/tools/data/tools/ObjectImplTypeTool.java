@@ -23,18 +23,13 @@ public class ObjectImplTypeTool {
 	 * @return Map实现名
 	 */
 	public static String getMapImpl(final int type) {
-		switch (type) {
-		case 1:
-			return "HashMap";
-		case 2:
-			return "LinkedHashMap";
-		case 3:
-			return "TreeMap";
-		case 4:
-			return "ConcurrentHashMap";
-		default:
-			throw new ConfigurationException("Error Logic Map Param type: " + type + " limit 1~4");
-		}
+		return switch (type) {
+		case 1 -> "HashMap";
+		case 2 -> "LinkedHashMap";
+		case 3 -> "TreeMap";
+		case 4 -> "ConcurrentHashMap";
+		default -> throw new ConfigurationException("Error Logic Map Param type: " + type + " limit 1~4");
+		};
 	}
 
 	/**
@@ -46,13 +41,10 @@ public class ObjectImplTypeTool {
 	 * @return List实现名
 	 */
 	public static String getListImpl(final int type) {
-		switch (type) {
-		case 1:
-			return "LinkedList";
-		case 2:
-			return "ArrayList";
-		default:
-			throw new ConfigurationException("Error Logic List Param type: " + type + " limit 1~2");
-		}
+		return switch (type) {
+		case 1 -> "LinkedList";
+		case 2 -> "ArrayList";
+		default -> throw new ConfigurationException("Error Logic List Param type: " + type + " limit 1~2");
+		};
 	}
 }

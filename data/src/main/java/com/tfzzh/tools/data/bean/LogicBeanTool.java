@@ -1279,13 +1279,8 @@ public class LogicBeanTool extends TemplateObjectTool {
 			this.type = type;
 			// TODO 临时处理方案
 			switch (this.type) {
-			case AllList:
-			case AllMap:
-				// this.keyField = new LogicFieldTool(999999l, "tmpObj", FieldTypeEnum.OjObject, "", false, "", "", "", "");
-				// break;
-			default:
-				this.keyField = null;
-				break;
+			case AllList, AllMap -> this.keyField = null;
+			default -> this.keyField = null;
 			}
 			this.relatedLogic = null;
 			this.objListType = 0;

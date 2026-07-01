@@ -111,7 +111,7 @@ public enum FieldTypeEnum implements AttributeOutput {
 
 		@Override
 		public String stringToTypeShow(final String val) {
-			return "\"" + val.replaceAll("\"", "\\\\\"") + "\"";
+			return "\"" + val.replace("\"", "\\\"") + "\"";
 		}
 	},
 	/**
@@ -191,7 +191,7 @@ public enum FieldTypeEnum implements AttributeOutput {
 
 		@Override
 		public String stringToTypeShow(final String val) {
-			return "new StringBuilder().append(\"" + val.replaceAll("\"", "\\\\\"") + "\")";
+			return "new StringBuilder().append(\"" + val.replace("\"", "\\\"") + "\")";
 		}
 	},
 	/**

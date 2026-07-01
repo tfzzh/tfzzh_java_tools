@@ -225,15 +225,9 @@ public class ToolBeanExcelPool {
 	public void putLogicBeanTool(final LogicBeanTool tool) {
 		this.logicMap.put(tool.getId(), tool);
 		switch (tool.getType()) {
-		case Data:
-			this.dataLogicMap.put(tool.getId(), tool);
-			break;
-		case Transition:
-			this.transitionLogicMap.put(tool.getId(), tool);
-			break;
-		case Analysis:
-			this.analysisLogicMap.put(tool.getId(), tool);
-			break;
+		case Data -> this.dataLogicMap.put(tool.getId(), tool);
+		case Transition -> this.transitionLogicMap.put(tool.getId(), tool);
+		case Analysis -> this.analysisLogicMap.put(tool.getId(), tool);
 		}
 	}
 

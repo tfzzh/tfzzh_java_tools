@@ -607,7 +607,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param ind 所在索引的位置
 	 * @param sort 正序或倒叙：false 为正序
 	 */
-	private void putIndexData(final IndexTypeEnum type, final String key, final int len, final DataFieldTool datafield, int ind, boolean sort) {
+	private void putIndexData(final IndexTypeEnum type, final String key, final int len, final DataFieldTool datafield, final int ind, final boolean sort) {
 		Map<String, DataFieldTool[]> map = this.indexMap.get(type);
 		if (null == map) {
 			// 都是直接创建
@@ -928,7 +928,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 					return;
 				}
 			}
-			lineData.set(i, lineData.get(i).replaceAll("\"", "\\\\\""));
+			lineData.set(i, lineData.get(i).replace("\"", "\\\""));
 			classData.add(this.fieldOrder.get(i).getType().stringToTypeShow(lineData.get(i)));
 		}
 		this.dataList.add(classData);
@@ -1064,15 +1064,9 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 				if (null != cf) {
 					// 验证两个存在的字段的相同性
 					// 数据在数据库中名
-					if (!pf.getDatafieldName().equals(cf.getDatafieldName())) {
-						continue;
-					}
 					// 数据在数据库中类型
-					if (pf.getDatafieldType() != cf.getDatafieldType()) {
-						continue;
-					}
 					// 数据在数据库中长度限制
-					if (!pf.getLength().equals(cf.getLength())) {
+					if (!pf.getDatafieldName().equals(cf.getDatafieldName()) || (pf.getDatafieldType() != cf.getDatafieldType()) || !pf.getLength().equals(cf.getLength())) {
 						continue;
 					}
 					newFieldMap.put(ent.getKey(), pf);
@@ -1092,15 +1086,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 			if (null == this.mainKey) {
 				return;
 			}
-			if (null == mk) {
-				this.mainKey = null;
-				return;
-			}
-			if (!this.mainKey.datafieldName.equals(mk.datafieldName)) {
-				this.mainKey = null;
-				return;
-			}
-			if (this.fieldMap.size() == 0) {
+			if ((null == mk) || !this.mainKey.datafieldName.equals(mk.datafieldName) || (this.fieldMap.size() == 0)) {
 				this.mainKey = null;
 				return;
 			}
@@ -1685,10 +1671,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 */
 		public boolean isCanChange() {
 			// 是否为非Bean类型
-			if (this.isUuid) {
-				return false;
-			}
-			if (this.isIncrement) {
+			if (this.isUuid || this.isIncrement) {
 				return false;
 			}
 			return true;
@@ -1915,7 +1898,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @author tfzzh
 		 * @dateTime 2022年6月29日 下午5:02:53
 		 */
-		private Set<Integer> sorts = new HashSet<>();
+		private final Set<Integer> sorts = new HashSet<>();
 
 		/**
 		 * 拥有的总量
