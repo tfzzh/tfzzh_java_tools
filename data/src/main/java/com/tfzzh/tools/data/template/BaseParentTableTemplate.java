@@ -5,7 +5,6 @@
 package com.tfzzh.tools.data.template;
 
 import com.tfzzh.tools.data.bean.DataBeanTool.ParentDataTool;
-import com.tfzzh.tools.data.tools.ConfigDataTemplateConstants;
 
 /**
  * 表消息Bean相关模版生成
@@ -53,7 +52,7 @@ public abstract class BaseParentTableTemplate extends BaseTemplate {
 	@Override
 	protected void setParams() {
 		super.setParams();
-		super.params.put("projectPath", ConfigDataTemplateConstants.PROJECT_PACKAGE_PREFIX);
+		super.params.put("projectPath", this.data.getProjectPath());
 		super.params.put("data", this.data);
 	}
 }

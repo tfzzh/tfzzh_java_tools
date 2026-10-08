@@ -63,6 +63,14 @@ public class LogicBeanTool extends TemplateObjectTool {
 	private final String functionName;
 
 	/**
+	 * 特殊包前缀（覆盖默认 PROJECT_PACKAGE_PREFIX）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 */
+	private final String packagePre;
+
+	/**
 	 * 加载时机，默认为初始化时加载<br />
 	 * 当前该功能还未实现<br />
 	 * 
@@ -327,6 +335,26 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 * @param lastChangeDate 最后修改时间
 	 */
 	public LogicBeanTool(final Long id, final String name, final String desc, final String type, final Long dataId, final String srcPath, final String functionName, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+		this(id, name, desc, type, dataId, srcPath, functionName, null, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
+	}
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 * @param id 被定义的ID
+	 * @param name Bean名称
+	 * @param desc 类的说明
+	 * @param type 逻辑对象类型值
+	 * @param dataId 数据ID，对象ID或字段ID
+	 * @param srcPath 源码包路径
+	 * @param functionName 功能名
+	 * @param packagePre 特殊包前缀（覆盖默认 PROJECT_PACKAGE_PREFIX）
+	 * @param createAuthor 创建人
+	 * @param createDate 创建时间
+	 * @param lastChangeAuthor 最后修改人
+	 * @param lastChangeDate 最后修改时间
+	 */
+	public LogicBeanTool(final Long id, final String name, final String desc, final String type, final Long dataId, final String srcPath, final String functionName, final String packagePre, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		super(id, name, desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		this.type = LogicObjectTypeEnum.getType(type);
 		switch (this.type) {
@@ -351,6 +379,7 @@ public class LogicBeanTool extends TemplateObjectTool {
 		}
 		this.srcPath = srcPath;
 		this.functionName = functionName;
+		this.packagePre = ((packagePre != null) && (packagePre.trim().length() > 0)) ? packagePre.trim() : null;
 	}
 
 	/**
@@ -593,6 +622,39 @@ public class LogicBeanTool extends TemplateObjectTool {
 	 */
 	public String getFunctionName() {
 		return this.functionName;
+	}
+
+	/**
+	 * 得到特殊包前缀
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 * @return 特殊包前缀；null 表示使用默认
+	 */
+	public String getPackagePre() {
+		return this.packagePre;
+	}
+
+	/**
+	 * 得到实际项目包路径（优先使用 packagePre，否则用默认 PROJECT_PACKAGE_PREFIX）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 * @return 实际项目包路径
+	 */
+	public String getProjectPath() {
+		return (this.packagePre != null) ? this.packagePre : ConfigDataTemplateConstants.PROJECT_PACKAGE_PREFIX;
+	}
+
+	/**
+	 * 得到实际项目路径前缀（包路径的 "/" 版本）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 * @return 实际项目路径前缀
+	 */
+	public String getProjectPathPrefix() {
+		return this.getProjectPath().replaceAll("[.]", "/");
 	}
 
 	/**

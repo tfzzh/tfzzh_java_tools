@@ -57,7 +57,7 @@ public class SystemParentBeanTemplate extends BaseParentTableTemplate {
 	 * @return 待输出的文件所在路径
 	 */
 	protected String getOutFilePath(final String srcPath) {
-		return srcPath + "../" + this.data.getSrcPath() + "/" + ConfigDataTemplateConstants.PROJECT_PATH_PREFIX + "/" + this.data.getFunctionName() + "/model/bean";
+		return srcPath + "../" + this.data.getSrcPath() + "/" + this.data.getProjectPathPrefix() + "/" + this.data.getFunctionName() + "/model/bean";
 	}
 
 	/**

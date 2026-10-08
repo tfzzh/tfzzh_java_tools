@@ -932,7 +932,15 @@ public class ToolBeanPoolExcelTool {
 			} else {
 				lastChangeAuthor = cell.getStringCellValue();
 			}
-			ToolBeanExcelPool.getInstance().putLogicBeanTool(new LogicBeanTool(id, dataName, desc, type, dataId, srcPath, functionName, createAuthor, createDate, lastChangeAuthor, lastChangeDate));
+			// 特殊包前缀（覆盖默认 PROJECT_PACKAGE_PREFIX）
+			cell = row.getCell(++colInd); // 13
+			final String packagePre;
+			if (null == cell) {
+				packagePre = null;
+			} else {
+				packagePre = cell.getStringCellValue();
+			}
+			ToolBeanExcelPool.getInstance().putLogicBeanTool(new LogicBeanTool(id, dataName, desc, type, dataId, srcPath, functionName, packagePre, createAuthor, createDate, lastChangeAuthor, lastChangeDate));
 		}
 	}
 

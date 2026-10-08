@@ -57,7 +57,7 @@ public class SystemBeanTemplate extends BaseTableTemplate {
 	 * @return 待输出的文件所在路径
 	 */
 	protected String getOutFilePath(final String srcPath) {
-		return srcPath + "../" + super.data.getSrcPath() + "/" + ConfigDataTemplateConstants.PROJECT_PATH_PREFIX + "/" + super.data.getFunctionName() + "/model/bean";
+		return srcPath + "../" + super.data.getSrcPath() + "/" + super.data.getProjectPathPrefix() + "/" + super.data.getFunctionName() + "/model/bean";
 	}
 
 	/**

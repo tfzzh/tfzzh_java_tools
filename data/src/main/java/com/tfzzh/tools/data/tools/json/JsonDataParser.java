@@ -83,11 +83,12 @@ public class JsonDataParser {
 		final String description = table.getString("description");
 		final String srcPath = table.getString("srcPath");
 		final String functionName = table.getString("functionName");
+		final String packagePre = table.getString("packagePre");
 		final String createAuthor = table.getString("createAuthor");
 		final String createDate = table.getString("createDate");
 		final String lastChangeAuthor = table.getString("lastChangeAuthor");
 		final String lastChangeDate = table.getString("lastChangeDate");
-		final DataBeanTool data = new DataBeanTool(id, name, databaseName, tableName, description, srcPath, functionName, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
+		final DataBeanTool data = new DataBeanTool(id, name, databaseName, tableName, description, srcPath, functionName, packagePre, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		final JSONArray fields = table.getJSONArray("fields");
 		if (fields != null) {
 			for (int i = 0; i < fields.size(); i++) {

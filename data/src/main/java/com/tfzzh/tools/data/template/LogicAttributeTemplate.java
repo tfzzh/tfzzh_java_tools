@@ -36,7 +36,7 @@ public class LogicAttributeTemplate extends BaseTemplate {
 	@Override
 	protected void setParams() {
 		super.setParams();
-		super.params.put("projectPath", ConfigDataTemplateConstants.PROJECT_PACKAGE_PREFIX);
+		super.params.put("projectPath", this.bean.getProjectPath());
 		super.params.put("data", this.bean);
 		super.params.put("classBeanPrefix", ConfigDataTemplateConstants.CLASSBEAN_PACKAGE_PREFIX);
 		super.params.put("classBeanSuffix", ConfigDataTemplateConstants.CLASSBEAN_CLASS_SUFFIX);
@@ -60,7 +60,7 @@ public class LogicAttributeTemplate extends BaseTemplate {
 	 */
 	@Override
 	protected String getOutFilePath() {
-		return ConfigDataTemplateConstants.SOURCE_BUILD_EXCEL_SRC_PATH + ConfigDataTemplateConstants.PROJECT_PATH_PREFIX + "/" + ConfigDataTemplateConstants.CLASSBEAN_PACKAGE_PREFIX.replaceAll("[.]", "/") + "/tools";
+		return ConfigDataTemplateConstants.SOURCE_BUILD_EXCEL_SRC_PATH + this.bean.getProjectPathPrefix() + "/" + ConfigDataTemplateConstants.CLASSBEAN_PACKAGE_PREFIX.replaceAll("[.]", "/") + "/tools";
 	}
 
 	/**

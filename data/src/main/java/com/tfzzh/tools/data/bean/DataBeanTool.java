@@ -142,6 +142,14 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	private final String srcPath;
 
 	/**
+	 * 特殊包前缀（覆盖默认 PROJECT_PACKAGE_PREFIX）
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2026-08-17
+	 */
+	private final String packagePre;
+
+	/**
 	 * 功能名
 	 * 
 	 * @author Weijie Xu
@@ -228,6 +236,26 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	 * @param lastChangeDate 最后修改时间
 	 */
 	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
+		this(id, name, databaseName, dataTableName, desc, srcPath, functionName, null, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
+	}
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2026-08-17
+	 * @param id 被定义的ID
+	 * @param name Bean名称
+	 * @param databaseName 对应的数据库名
+	 * @param dataTableName 对应的数据表名
+	 * @param desc 类的说明
+	 * @param srcPath 源码包路径
+	 * @param functionName 功能名
+	 * @param packagePre 特殊包前缀（覆盖默认 PROJECT_PACKAGE_PREFIX）
+	 * @param createAuthor 创建人
+	 * @param createDate 创建时间
+	 * @param lastChangeAuthor 最后修改人
+	 * @param lastChangeDate 最后修改时间
+	 */
+	public DataBeanTool(final Long id, final String name, final String databaseName, final String dataTableName, final String desc, final String srcPath, final String functionName, final String packagePre, final String createAuthor, final String createDate, final String lastChangeAuthor, final String lastChangeDate) {
 		super(id, name.indexOf("(") == -1 ? name : name.substring(0, name.indexOf("(")), desc, createAuthor, createDate, lastChangeAuthor, lastChangeDate);
 		this.databaseName = databaseName;
 		this.dataTableName = dataTableName;
@@ -245,6 +273,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		}
 		this.srcPath = srcPath.toLowerCase();
 		this.functionName = functionName.toLowerCase();
+		this.packagePre = ((packagePre != null) && (packagePre.trim().length() > 0)) ? packagePre.trim() : null;
 	}
 
 	/**
@@ -555,6 +584,39 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 	}
 
 	/**
+	 * 得到特殊包前缀
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2026-08-17
+	 * @return 特殊包前缀；null 表示使用默认
+	 */
+	public String getPackagePre() {
+		return this.packagePre;
+	}
+
+	/**
+	 * 得到实际项目包路径（优先使用 packagePre，否则用默认 PROJECT_PACKAGE_PREFIX）
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2026-08-17
+	 * @return 实际项目包路径
+	 */
+	public String getProjectPath() {
+		return (this.packagePre != null) ? this.packagePre : ConfigDataTemplateConstants.PROJECT_PACKAGE_PREFIX;
+	}
+
+	/**
+	 * 得到实际项目路径前缀（包路径的 "/" 版本）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-08-19
+	 * @return 实际项目路径前缀
+	 */
+	public String getProjectPathPrefix() {
+		return this.getProjectPath().replaceAll("[.]", "/");
+	}
+
+	/**
 	 * 得到功能路径（路径类，“/”为名称间间隔）
 	 * 
 	 * @author Weijie Xu
@@ -797,6 +859,9 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 				isFirst = true;
 				int cou = 0;
 				for (final DataFieldTool s : ifs) {
+					if (null == s) {
+						throw new ConfigurationException("In Data[" + super.getId() + ":" + this.dataTableName + "] has Error With Index ... ");
+					}
 					cou++;
 					if (isFirst) {
 						isFirst = false;
@@ -831,7 +896,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		}
 		if (len > DataConfigConstants.INDEX_MAX_LENGTH) {
 			// 如果超长，抛出异常
-			throw new ConfigurationException("In Data[" + super.getId() + "] has Error With Index Length:" + len + ">750.");
+			throw new ConfigurationException("In Data[" + super.getId() + ":" + this.dataTableName + "] has Error With Index Length:" + len + ">750.");
 		}
 	}
 
@@ -1177,6 +1242,28 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 */
 		public String getSuffix() {
 			return DataBeanTool.this.getSuffix();
+		}
+
+		/**
+		 * 得到实际项目包路径（代理到所属 DataBeanTool）
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2026-08-17
+		 * @return 实际项目包路径
+		 */
+		public String getProjectPath() {
+			return DataBeanTool.this.getProjectPath();
+		}
+
+		/**
+		 * 得到实际项目路径前缀（包路径的 "/" 版本）
+		 *
+		 * @author tfzzh
+		 * @dateTime 2026-08-19
+		 * @return 实际项目路径前缀
+		 */
+		public String getProjectPathPrefix() {
+			return DataBeanTool.this.getProjectPathPrefix();
 		}
 	}
 
@@ -1784,7 +1871,7 @@ public class DataBeanTool extends TemplateObjectTool implements DataBean {
 		 * @author tfzzh
 		 * @dateTime 2022年6月24日 下午7:24:12
 		 */
-		private boolean sort;
+		private final boolean sort;
 
 		/**
 		 * @author XuWeijie
