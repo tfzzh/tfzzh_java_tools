@@ -139,8 +139,8 @@ public class ProxyRequestToolBean {
 		this.proxy = proxy;
 		this.target = target;
 		this.beanName = beanName;
-		this.linkedList = new LinkedList<LinkedTool>();
-		this.msgMap = new HashMap<Integer, MessageToolBean>();
+		this.linkedList = new LinkedList<>();
+		this.msgMap = new HashMap<>();
 	}
 
 	/**
@@ -324,7 +324,7 @@ public class ProxyRequestToolBean {
 		 */
 		@Override
 		public List<LinkedTool> getLinkedList() {
-			final List<LinkedTool> l = new LinkedList<LinkedTool>();
+			final List<LinkedTool> l = new LinkedList<>();
 			l.add(ProxyRequestToolBean.this.proxyLink);
 			return l;
 		}
@@ -336,7 +336,7 @@ public class ProxyRequestToolBean {
 		 */
 		@Override
 		public Collection<MessageToolBean> getMessages() {
-			final List<MessageToolBean> l = new LinkedList<MessageToolBean>();
+			final List<MessageToolBean> l = new LinkedList<>();
 			l.add(ProxyRequestToolBean.this.proxyLink.getMsg());
 			return l;
 		}
@@ -714,7 +714,7 @@ public class ProxyRequestToolBean {
 		 */
 		@Override
 		public List<LinkedTool> getLinkedList() {
-			final List<LinkedTool> l = new LinkedList<LinkedTool>();
+			final List<LinkedTool> l = new LinkedList<>();
 			l.add(ProxyRequestToolBean.this.proxyLink);
 			return l;
 		}
@@ -726,7 +726,7 @@ public class ProxyRequestToolBean {
 		 */
 		@Override
 		public Collection<MessageToolBean> getMessages() {
-			final List<MessageToolBean> l = new LinkedList<MessageToolBean>();
+			final List<MessageToolBean> l = new LinkedList<>();
 			l.add(ProxyRequestToolBean.this.proxyLink.getMsg());
 			return l;
 		}

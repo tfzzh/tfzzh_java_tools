@@ -81,7 +81,7 @@ public class ActionBeanTool {
 			beanName = ((List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("bean")).get(0).get(XMLAnalyse.XML_TAG_CONTENT);
 			methodName = ((List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("method")).get(0).get(XMLAnalyse.XML_TAG_CONTENT);
 			{
-				List<Map<String, String>> tmp = (List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("validate");
+				final List<Map<String, String>> tmp = (List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("validate");
 				if (null != tmp) {
 					validate = tmp.get(0).get(XMLAnalyse.XML_TAG_CONTENT);
 				} else {
@@ -98,8 +98,7 @@ public class ActionBeanTool {
 				RequestXMLTool.getInstance().putLinked(scopeType, fromType, beanName, new LinkedToolBean(new int[] { code }, scopeType, fromType, methodName, validate, desc, null, null, isKeep, false));
 			} else {
 				// 得到请求对象实例
-				RequestXMLTool.getInstance().putLinked(scopeType, fromType, beanName,
-						new LinkedToolBean(new int[] { code }, scopeType, fromType, methodName, validate, desc, RequestXMLTool.getInstance().getRequestMessage(scopeType, paramId), null, isKeep, false));
+				RequestXMLTool.getInstance().putLinked(scopeType, fromType, beanName, new LinkedToolBean(new int[] { code }, scopeType, fromType, methodName, validate, desc, RequestXMLTool.getInstance().getRequestMessage(scopeType, paramId), null, isKeep, false));
 			}
 		}
 	}

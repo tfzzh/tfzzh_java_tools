@@ -117,7 +117,7 @@ public class ProxyActionBeanTool {
 					linkId = Integer.parseInt(lats.get("id").toString());
 					lmethodName = ((Map<String, List<Map<String, String>>>) (l.get(XMLAnalyse.XML_TAG_ELEMENT))).get("link-method").get(0).get(XMLAnalyse.XML_TAG_CONTENT);
 					{
-						List<Map<String, String>> tmpVal = (List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("link-validate");
+						final List<Map<String, String>> tmpVal = (List<Map<String, String>>) d.get(XMLAnalyse.XML_TAG_ELEMENT).get("link-validate");
 						if (null != tmpVal) {
 							lvalidate = tmpVal.get(0).get(XMLAnalyse.XML_TAG_CONTENT);
 						} else {

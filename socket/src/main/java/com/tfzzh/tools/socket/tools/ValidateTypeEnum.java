@@ -11,6 +11,7 @@ package com.tfzzh.tools.socket.tools;
  * @dateTime 2014年4月9日 下午3:16:01
  */
 public enum ValidateTypeEnum {
+
 	/**
 	 * 1，是否存在
 	 * 
@@ -429,20 +430,20 @@ public enum ValidateTypeEnum {
 	 * @return 显示用值
 	 */
 	protected String getNumberParamContent(final FieldTypeEnum type, final String val) {
-		switch (type) {
+		return switch (type) {
 		case Int:
-			return val;
+			yield val;
 		case Long:
-			return val + "l";
+			yield val + "l";
 		case Short:
-			return "(short) " + val;
+			yield "(short) " + val;
 		case Float:
-			return val + "f";
+			yield val + "f";
 		case Double:
-			return val + "d";
+			yield val + "d";
 		default: // 正常来说不可能出现的情况，作为一般字符串处理
-			return "\"" + val + "\"";
-		}
+			yield "\"" + val + "\"";
+		};
 	}
 
 	/**

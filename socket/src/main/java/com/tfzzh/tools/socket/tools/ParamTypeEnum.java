@@ -13,6 +13,7 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime 2014年6月12日 下午4:16:19
  */
 public enum ParamTypeEnum {
+
 	/**
 	 * 正常的
 	 * 

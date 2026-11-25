@@ -238,6 +238,15 @@ public class ConfigDataTemplateConstants extends BaseConstants {
 	public static String SOURCE_BUILD_EXCEL_SRC_PATH;
 
 	/**
+	 * JSON初始化数据文件输出源路径（表结构json中data块生成的*_data.json输出位置）；不配置时，默认取 SOURCE_BUILD_EXCEL_SRC_PATH 中将"/java/"替换为"/resources/"（即与运行期classpath读取位置"json_data/"对齐的资源源路径）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-24
+	 */
+	@PropertiesValue
+	public static String SOURCE_BUILD_DATA_SRC_PATH;
+
+	/**
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:36:17
 	 * @param bundleName 所相关资源名

@@ -184,8 +184,7 @@ public class LinkedToolBean implements LinkedTool {
 	 * @param isKeep 是否守护方法
 	 * @param isProxy 是否代理方法
 	 */
-	public LinkedToolBean(final int minId, final int maxId, final ScopeType scope, final ScopeType from, final String methodName, final String validate, final String desc, final MessageToolBean msg, final MessageToolBean clientMsg, final boolean isKeep,
-			final boolean isProxy) {
+	public LinkedToolBean(final int minId, final int maxId, final ScopeType scope, final ScopeType from, final String methodName, final String validate, final String desc, final MessageToolBean msg, final MessageToolBean clientMsg, final boolean isKeep, final boolean isProxy) {
 		this.id = new int[] { minId, maxId };
 		// this.name = null;
 		this.isRange = true;

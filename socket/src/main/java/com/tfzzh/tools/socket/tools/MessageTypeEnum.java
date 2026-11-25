@@ -11,6 +11,7 @@ package com.tfzzh.tools.socket.tools;
  * @datetime 2016年4月27日_下午8:20:21
  */
 public enum MessageTypeEnum {
+
 	/**
 	 * 是基于Socket/WebSocket的
 	 * 

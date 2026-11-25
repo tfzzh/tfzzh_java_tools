@@ -14,8 +14,10 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import com.tfzzh.log.CoreLog;
 import com.tfzzh.tools.Constants;
@@ -78,6 +80,32 @@ public abstract class BaseTemplate {
 	 * @dateTime 2014年12月26日 下午7:17:10
 	 */
 	private static int createCount = 0;
+
+	/**
+	 * 删除文件总量（model 路径下冗余生成物的清理）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 */
+	private static int deleteCount = 0;
+
+	/**
+	 * 本次生成所覆盖的目标文件全路径（规范路径）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 */
+	private static final Set<String> targetFilePaths = new HashSet<>();
+
+	/**
+	 * 本次生成涉及的 model 清理扫描根目录全路径（规范路径）。<br />
+	 * 取注册文件向上四级（包前缀目录），从其递归向下扫描全部 model 目录，<br />
+	 * 保证整域删除（如某 functionName 下所有表都被移除）时遗留文件也能被覆盖到。
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 */
+	private static final Set<String> modelScanRoots = new HashSet<>();
 
 	/**
 	 * 得到模版消息
@@ -244,6 +272,8 @@ public abstract class BaseTemplate {
 		final String fileName = this.getOutFileName();
 		// 得到文件消息
 		file = new File(filePath + File.separator + fileName);
+		// 登记本次生成的目标文件（用于 model 路径冗余文件清理）
+		BaseTemplate.registerTargetFile(file);
 		this.params.put("tmpFilePostfix", "");
 		if (this.isNeedTemplate()) {
 			// 如果已经存在目标文件则生成名称带有tmp的相关文件
@@ -362,5 +392,99 @@ public abstract class BaseTemplate {
 	 */
 	public static int getCreateCount() {
 		return BaseTemplate.createCount;
+	}
+
+	/**
+	 * 登记本次生成的目标文件；model 路径下的同时推导出其包前缀扫描根目录，供冗余清理扫描
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 * @param target 目标输出文件（真实文件名，未加 tmp/.new 后缀）
+	 */
+	private static void registerTargetFile(final File target) {
+		try {
+			final String path = target.getCanonicalPath();
+			BaseTemplate.targetFilePaths.add(path);
+			if (path.contains("/model/") || path.contains("\\model\\")) {
+				// 目标文件：.../<srcRoot>/<包前缀>/<功能域>/model/<bean|dao|impl>/<文件>.java
+				// 向上四级即包前缀目录，作为递归扫描根，覆盖该包下所有功能域的 model 目录
+				File scanRoot = target.getCanonicalFile().getParentFile();
+				for (int i = 0; (i < 3) && (null != scanRoot); i++) {
+					scanRoot = scanRoot.getParentFile();
+				}
+				if (null != scanRoot) {
+					BaseTemplate.modelScanRoots.add(scanRoot.getCanonicalPath());
+				}
+			}
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 清理 model 路径下的冗余生成物：历史上存在、但本次生成集合已不再覆盖的 java 文件。<br />
+	 * 从包前缀扫描根递归向下扫描全部 model 目录，只处理 .java 文件；<br />
+	 * 生成集合为空时拒绝执行，防止误清。<br />
+	 * 被删文件逐条输出到控制台，总量由 {@link #getDeleteCount()} 提供。<br />
+	 * 注意：本方法只应由生成主流程在全部模板执行完毕后调用一次。
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 */
+	public static void removeRedundantModelFiles() {
+		if (BaseTemplate.targetFilePaths.isEmpty()) {
+			// 生成集合为空，视为异常情况，不做任何删除
+			System.out.println("!! redundant clean skipped: no target file registered ...");
+			return;
+		}
+		for (final String rootPath : BaseTemplate.modelScanRoots) {
+			BaseTemplate.cleanRedundantInDir(new File(rootPath));
+		}
+	}
+
+	/**
+	 * 递归扫描目录，删除不在本次生成集合内的 model 路径 java 文件
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 * @param dir 待扫描目录
+	 */
+	private static void cleanRedundantInDir(final File dir) {
+		final File[] files = dir.listFiles();
+		if (null == files) {
+			return;
+		}
+		for (final File f : files) {
+			if (f.isDirectory()) {
+				BaseTemplate.cleanRedundantInDir(f);
+				continue;
+			}
+			final String name = f.getName();
+			if (!name.endsWith(".java")) {
+				continue;
+			}
+			try {
+				final String path = f.getCanonicalPath();
+				if ((path.contains("/model/") || path.contains("\\model\\")) && !BaseTemplate.targetFilePaths.contains(path)) {
+					if (f.delete()) {
+						BaseTemplate.deleteCount++;
+						System.out.println("--Delete redundant file >> " + path);
+					}
+				}
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 得到删除文件总量（model 路径冗余生成物清理）
+	 *
+	 * @author tfzzh
+	 * @dateTime 2026-11-23 下午10:55:00
+	 * @return the deleteCount
+	 */
+	public static int getDeleteCount() {
+		return BaseTemplate.deleteCount;
 	}
 }

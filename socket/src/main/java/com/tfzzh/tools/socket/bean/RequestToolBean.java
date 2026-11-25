@@ -95,8 +95,8 @@ public class RequestToolBean implements RequestTool {
 		this.beanName = beanName;
 		this.scope = scope;
 		this.from = from;
-		this.linkedList = new LinkedList<LinkedTool>();
-		this.msgMap = new HashMap<Integer, MessageToolBean>();
+		this.linkedList = new LinkedList<>();
+		this.msgMap = new HashMap<>();
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class RequestToolBean implements RequestTool {
 	public Collection<MessageToolBean> getMessages() {
 		// 其实这里可以考虑直接用msg.name做键，使用TreeMap进行直接排序
 		final Collection<MessageToolBean> coll = this.msgMap.values();
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>(coll);
+		final List<MessageToolBean> list = new LinkedList<>(coll);
 		Collections.sort(list, new Comparator<MessageToolBean>() {
 
 			@Override

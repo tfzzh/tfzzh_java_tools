@@ -94,8 +94,8 @@ public class OperationToolBean implements OperationTool {
 		this.beanName = beanName;
 		this.scope = from;
 		this.target = scope;
-		this.linkedList = new LinkedList<LinkedTool>();
-		this.msgMap = new HashMap<Integer, MessageToolBean>();
+		this.linkedList = new LinkedList<>();
+		this.msgMap = new HashMap<>();
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class OperationToolBean implements OperationTool {
 	@Override
 	public Collection<MessageToolBean> getMessages() {
 		final Collection<MessageToolBean> coll = this.msgMap.values();
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>(coll);
+		final List<MessageToolBean> list = new LinkedList<>(coll);
 		Collections.sort(list, new Comparator<MessageToolBean>() {
 
 			@Override

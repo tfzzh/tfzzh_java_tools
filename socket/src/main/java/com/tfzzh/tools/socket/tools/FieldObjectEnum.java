@@ -13,6 +13,7 @@ import com.tfzzh.tools.socket.bean.MessageToolBean;
  * @dateTime 2014-3-8 上午10:38:52
  */
 public enum FieldObjectEnum {
+
 	/**
 	 * 对象内容的列表
 	 * 

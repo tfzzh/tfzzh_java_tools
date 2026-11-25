@@ -53,7 +53,7 @@ public abstract class BaseTemplate {
 	 * @author XuWeijie
 	 * @dateTime May 3, 2010 1:09:19 PM
 	 */
-	protected Map<String, Object> params = new HashMap<String, Object>();
+	protected Map<String, Object> params = new HashMap<>();
 
 	/**
 	 * 新生成的文件
@@ -178,9 +178,7 @@ public abstract class BaseTemplate {
 					this.log.debug("++Create File: " + projectPath + "" + this.getOutFileName());
 				}
 			}
-		} catch (final TemplateException e) {
-			e.printStackTrace();
-		} catch (final IOException e) {
+		} catch (final TemplateException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -242,9 +240,7 @@ public abstract class BaseTemplate {
 			// }
 			// 在这里进行文件创建
 			return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), Constants.SYSTEM_CODE));
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (final UnsupportedEncodingException e) {
+		} catch (final FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;

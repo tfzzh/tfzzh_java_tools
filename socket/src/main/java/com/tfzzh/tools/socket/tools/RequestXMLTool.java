@@ -37,7 +37,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014-3-29 下午4:00:51
 	 */
-	private final Map<ScopeType, Map<ScopeType, Map<String, RequestTool>>> requests = new HashMap<ScopeType, Map<ScopeType, Map<String, RequestTool>>>();
+	private final Map<ScopeType, Map<ScopeType, Map<String, RequestTool>>> requests = new HashMap<>();
 
 	/**
 	 * 代理请求对象列表<br />
@@ -49,7 +49,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014年7月3日 下午2:00:36
 	 */
-	private final Map<Integer, ProxyRequestToolBean> proxys = new HashMap<Integer, ProxyRequestToolBean>();
+	private final Map<Integer, ProxyRequestToolBean> proxys = new HashMap<>();
 
 	/**
 	 * 操作对象列表
@@ -57,7 +57,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月30日 下午6:52:51
 	 */
-	private final Map<ScopeType, Map<ScopeType, Map<String, OperationTool>>> operations = new HashMap<ScopeType, Map<ScopeType, Map<String, OperationTool>>>();
+	private final Map<ScopeType, Map<ScopeType, Map<String, OperationTool>>> operations = new HashMap<>();
 
 	/**
 	 * 消息信息列表
@@ -65,7 +65,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014-3-21 下午8:59:21
 	 */
-	private final Map<ScopeType, Map<Integer, MessageToolBean>> msgMap = new HashMap<ScopeType, Map<Integer, MessageToolBean>>();
+	private final Map<ScopeType, Map<Integer, MessageToolBean>> msgMap = new HashMap<>();
 
 	/**
 	 * 普通消息列表
@@ -73,7 +73,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月6日 上午10:26:58
 	 */
-	private final Map<ScopeType, Map<Integer, MessageToolBean>> normalMsgMap = new HashMap<ScopeType, Map<Integer, MessageToolBean>>();
+	private final Map<ScopeType, Map<Integer, MessageToolBean>> normalMsgMap = new HashMap<>();
 
 	/**
 	 * 动态消息列表
@@ -81,7 +81,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月6日 上午10:27:33
 	 */
-	private final Map<ScopeType, Map<Integer, MessageToolBean>> dynamicMsgMap = new HashMap<ScopeType, Map<Integer, MessageToolBean>>();
+	private final Map<ScopeType, Map<Integer, MessageToolBean>> dynamicMsgMap = new HashMap<>();
 
 	/**
 	 * 代理消息列表
@@ -89,7 +89,7 @@ public class RequestXMLTool {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月12日 下午4:27:20
 	 */
-	private final Map<ScopeType, Map<Integer, MessageToolBean>> proxyMsgMap = new HashMap<ScopeType, Map<Integer, MessageToolBean>>();
+	private final Map<ScopeType, Map<Integer, MessageToolBean>> proxyMsgMap = new HashMap<>();
 
 	/**
 	 * 对象唯一实例
@@ -129,7 +129,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.msgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.msgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -137,7 +137,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.normalMsgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.normalMsgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -158,7 +158,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.msgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.msgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -166,7 +166,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.dynamicMsgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.dynamicMsgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -185,7 +185,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.msgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.msgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -193,7 +193,7 @@ public class RequestXMLTool {
 		{
 			Map<Integer, MessageToolBean> map = this.proxyMsgMap.get(scopes);
 			if (null == map) {
-				map = new HashMap<Integer, MessageToolBean>();
+				map = new HashMap<>();
 				this.proxyMsgMap.put(scopes, map);
 			}
 			map.put(tool.getId(), tool);
@@ -244,7 +244,7 @@ public class RequestXMLTool {
 			return null;
 		}
 		final Collection<MessageToolBean> coll = map.values();
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>(coll);
+		final List<MessageToolBean> list = new LinkedList<>(coll);
 		Collections.sort(list, new Comparator<MessageToolBean>() {
 
 			@Override
@@ -272,7 +272,7 @@ public class RequestXMLTool {
 			return null;
 		}
 		final Collection<MessageToolBean> coll = map.values();
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>(coll);
+		final List<MessageToolBean> list = new LinkedList<>(coll);
 		Collections.sort(list, new Comparator<MessageToolBean>() {
 
 			@Override
@@ -300,7 +300,7 @@ public class RequestXMLTool {
 			return null;
 		}
 		final Collection<MessageToolBean> coll = map.values();
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>(coll);
+		final List<MessageToolBean> list = new LinkedList<>(coll);
 		Collections.sort(list, new Comparator<MessageToolBean>() {
 
 			@Override
@@ -322,7 +322,7 @@ public class RequestXMLTool {
 	 * @return 消息信息列表
 	 */
 	public Collection<MessageToolBean> getAllMessageList(final String suffix) {
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>();
+		final List<MessageToolBean> list = new LinkedList<>();
 		for (final Map<Integer, MessageToolBean> map : this.msgMap.values()) {
 			list.addAll(map.values());
 		}
@@ -346,7 +346,7 @@ public class RequestXMLTool {
 	 * @return 消息信息列表ID排序
 	 */
 	public Collection<MessageToolBean> getAllMessageListSortId() {
-		final List<MessageToolBean> list = new LinkedList<MessageToolBean>();
+		final List<MessageToolBean> list = new LinkedList<>();
 		for (final Map<Integer, MessageToolBean> map : this.msgMap.values()) {
 			list.addAll(map.values());
 		}
@@ -393,12 +393,12 @@ public class RequestXMLTool {
 		{
 			Map<ScopeType, Map<String, RequestTool>> sco = this.requests.get(scope);
 			if (null == sco) {
-				sco = new HashMap<ScopeType, Map<String, RequestTool>>();
+				sco = new HashMap<>();
 				this.requests.put(scope, sco);
 			}
 			Map<String, RequestTool> requestM = sco.get(from);
 			if (null == requestM) {
-				requestM = new HashMap<String, RequestTool>();
+				requestM = new HashMap<>();
 				sco.put(from, requestM);
 			}
 			RequestTool request = requestM.get(beanName);
@@ -411,12 +411,12 @@ public class RequestXMLTool {
 		{
 			Map<ScopeType, Map<String, OperationTool>> sco = this.operations.get(from);
 			if (null == sco) {
-				sco = new HashMap<ScopeType, Map<String, OperationTool>>();
+				sco = new HashMap<>();
 				this.operations.put(from, sco);
 			}
 			Map<String, OperationTool> operationM = sco.get(scope);
 			if (null == operationM) {
-				operationM = new HashMap<String, OperationTool>();
+				operationM = new HashMap<>();
 				sco.put(scope, operationM);
 			}
 			OperationTool operation = operationM.get(beanName);
@@ -438,15 +438,15 @@ public class RequestXMLTool {
 	private void putRequestTool(final RequestTool rt) {
 		Map<ScopeType, Map<String, RequestTool>> sco = this.requests.get(rt.getScope());
 		if (null == sco) {
-			sco = new HashMap<ScopeType, Map<String, RequestTool>>();
+			sco = new HashMap<>();
 			this.requests.put(rt.getScope(), sco);
-			final Map<String, RequestTool> requestM = new HashMap<String, RequestTool>();
+			final Map<String, RequestTool> requestM = new HashMap<>();
 			sco.put(rt.getFrom(), requestM);
 			requestM.put(rt.getBeanName(), rt);
 		} else {
 			Map<String, RequestTool> requestM = sco.get(rt.getFrom());
 			if (null == requestM) {
-				requestM = new HashMap<String, RequestTool>();
+				requestM = new HashMap<>();
 				sco.put(rt.getFrom(), requestM);
 				requestM.put(rt.getBeanName(), rt);
 			} else {
@@ -474,15 +474,15 @@ public class RequestXMLTool {
 	private void putOperationTool(final OperationTool ot) {
 		Map<ScopeType, Map<String, OperationTool>> sco = this.operations.get(ot.getScope());
 		if (null == sco) {
-			sco = new HashMap<ScopeType, Map<String, OperationTool>>();
+			sco = new HashMap<>();
 			this.operations.put(ot.getScope(), sco);
-			final Map<String, OperationTool> operationM = new HashMap<String, OperationTool>();
+			final Map<String, OperationTool> operationM = new HashMap<>();
 			sco.put(ot.getTarget(), operationM);
 			operationM.put(ot.getBeanName(), ot);
 		} else {
 			Map<String, OperationTool> operationM = sco.get(ot.getTarget());
 			if (null == operationM) {
-				operationM = new HashMap<String, OperationTool>();
+				operationM = new HashMap<>();
 				sco.put(ot.getTarget(), operationM);
 				operationM.put(ot.getBeanName(), ot);
 			} else {
@@ -547,7 +547,7 @@ public class RequestXMLTool {
 		if (map == null) {
 			return null;
 		}
-		final List<RequestTool> list = new LinkedList<RequestTool>();
+		final List<RequestTool> list = new LinkedList<>();
 		for (final Map<String, RequestTool> rs : map.values()) {
 			list.addAll(rs.values());
 		}
@@ -576,7 +576,7 @@ public class RequestXMLTool {
 		if (map == null) {
 			return null;
 		}
-		final List<OperationTool> list = new LinkedList<OperationTool>();
+		final List<OperationTool> list = new LinkedList<>();
 		for (final Map<String, OperationTool> os : map.values()) {
 			list.addAll(os.values());
 		}
@@ -600,7 +600,7 @@ public class RequestXMLTool {
 	 * @return 请求对象列表
 	 */
 	public List<RequestTool> getAllRequestList() {
-		final List<RequestTool> list = new LinkedList<RequestTool>();
+		final List<RequestTool> list = new LinkedList<>();
 		for (final Map<ScopeType, Map<String, RequestTool>> m : this.requests.values()) {
 			for (final Map<String, RequestTool> os : m.values()) {
 				list.addAll(os.values());
@@ -627,7 +627,7 @@ public class RequestXMLTool {
 	 * @return 连接对象列表
 	 */
 	public List<LinkedTool> getAllLinkedList(final String suffix) {
-		final List<LinkedTool> list = new LinkedList<LinkedTool>();
+		final List<LinkedTool> list = new LinkedList<>();
 		for (final Map<ScopeType, Map<String, RequestTool>> m : this.requests.values()) {
 			for (final Map<String, RequestTool> rs : m.values()) {
 				for (final RequestTool r : rs.values()) {

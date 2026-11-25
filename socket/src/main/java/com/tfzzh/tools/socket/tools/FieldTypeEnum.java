@@ -11,6 +11,7 @@ package com.tfzzh.tools.socket.tools;
  * @dateTime 2014-3-6 下午5:18:00
  */
 public enum FieldTypeEnum {
+
 	/**
 	 * @author Weijie Xu
 	 * @dateTime 2014-3-6 下午5:29:34

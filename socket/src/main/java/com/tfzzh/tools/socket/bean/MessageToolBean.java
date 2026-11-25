@@ -116,7 +116,7 @@ public class MessageToolBean {
 	 * @author Weijie Xu
 	 * @dateTime 2014-3-21 下午8:01:25
 	 */
-	private final Map<String, MessageParamToolBean> params = new LinkedHashMap<String, MessageParamToolBean>();
+	private final Map<String, MessageParamToolBean> params = new LinkedHashMap<>();
 
 	/**
 	 * 是否存在List
@@ -180,7 +180,7 @@ public class MessageToolBean {
 	 * @author Weijie Xu
 	 * @dateTime 2014年10月22日 下午7:57:34
 	 */
-	private final static Map<String, String> OBJ_MAPPING = new HashMap<String, String>();
+	private final static Map<String, String> OBJ_MAPPING = new HashMap<>();
 	/**
 	 * 代码段，初始化一些数据用
 	 */
@@ -288,7 +288,7 @@ public class MessageToolBean {
 	 * @return 父类相关的属性列表
 	 */
 	public List<MessageParamToolBean> getParentParams() {
-		final List<MessageParamToolBean> params = new LinkedList<MessageParamToolBean>();
+		final List<MessageParamToolBean> params = new LinkedList<>();
 		MessageToolBean b = this.getParent();
 		while (null != b) {
 			params.addAll(0, b.params.values());
@@ -707,7 +707,7 @@ public class MessageToolBean {
 		 * @return 实际用到的列表
 		 */
 		private Map<ValidateTypeEnum, String[]> analyticalValidate(final String validate, final String valData) {
-			final Map<ValidateTypeEnum, String[]> map = new LinkedHashMap<ValidateTypeEnum, String[]>();
+			final Map<ValidateTypeEnum, String[]> map = new LinkedHashMap<>();
 			if ((null == validate) || (validate.length() == 0) || (null == valData) || (valData.length() == 0)) {
 				return map;
 			}

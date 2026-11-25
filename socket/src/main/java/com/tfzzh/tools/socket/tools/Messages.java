@@ -41,9 +41,7 @@ public class Messages {
 	public static String getString(final String key) {
 		try {
 			return new String(Messages.RESOURCE_BUNDLE.getString(key).getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
-		} catch (final MissingResourceException e) {
-			return '!' + key + '!';
-		} catch (final UnsupportedEncodingException e) {
+		} catch (final MissingResourceException | UnsupportedEncodingException e) {
 			return '!' + key + '!';
 		}
 	}

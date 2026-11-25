@@ -106,23 +106,15 @@ public class MessageBeanTool {
 					dynamicId = (String) pats.get("dyid");
 					paramDesc = (String) pats.get("desc");
 					switch (type) {
-					case Normal:
-						msg.putNormalParam(paramName, paramType, paramObj, validate, valData, paramDesc);
-						break;
-					case Dynamic:
-						msg.putDynamicParam(paramName, paramType, paramObj, validate, valData, dynamicId, paramDesc);
-						break;
+					case Normal -> msg.putNormalParam(paramName, paramType, paramObj, validate, valData, paramDesc);
+					case Dynamic -> msg.putDynamicParam(paramName, paramType, paramObj, validate, valData, dynamicId, paramDesc);
 					}
 				}
 			}
 			switch (type) {
-			case Normal:
-				// 得到消息信息对象实例
-				RequestXMLTool.getInstance().putNormalRequestMessage(scopesType, msg);
-				break;
-			case Dynamic:
-				RequestXMLTool.getInstance().putDynamicRequestMessage(scopesType, msg);
-				break;
+			case Normal -> // 得到消息信息对象实例
+					RequestXMLTool.getInstance().putNormalRequestMessage(scopesType, msg);
+			case Dynamic -> RequestXMLTool.getInstance().putDynamicRequestMessage(scopesType, msg);
 			}
 		}
 	}

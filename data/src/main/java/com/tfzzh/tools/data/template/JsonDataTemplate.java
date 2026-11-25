@@ -55,18 +55,11 @@ public class JsonDataTemplate extends BaseTableTemplate {
 	 */
 	@Override
 	protected String getOutFilePath() {
-		return this.getOutFilePath(ConfigDataTemplateConstants.SOURCE_BUILD_EXCEL_SRC_PATH);
-	}
-
-	/**
-	 * 实际的输出路径
-	 * 
-	 * @author Weijie Xu
-	 * @dateTime 2014年11月13日 下午4:51:50
-	 * @param srcPath 输出源码包路径
-	 * @return 待输出的文件所在路径
-	 */
-	protected String getOutFilePath(final String srcPath) {
-		return srcPath + "../data/json_data";
+		String basePath = ConfigDataTemplateConstants.SOURCE_BUILD_DATA_SRC_PATH;
+		if ((basePath == null) || basePath.isEmpty()) {
+			// 默认：由Excel源码路径的"/java/"替换为"/resources/"，与运行期classpath下"json_data/"读取位置对齐
+			basePath = ConfigDataTemplateConstants.SOURCE_BUILD_EXCEL_SRC_PATH.replace("/java/", "/resources/");
+		}
+		return basePath + "json_data";
 	}
 }
